@@ -59,7 +59,7 @@
 #include <driverlib/uart.h>
 #include <driverlib/udma.h>
 
-#include "EK_TM4C1294XL.h"
+#include <ptgmed_inc/EK_TM4C1294XL.h>
 
 #ifndef TI_DRIVERS_UART_DMA
 #define TI_DRIVERS_UART_DMA 0
