@@ -25,9 +25,10 @@
 #include <ptgmed_inc/Samples_config.h>
 #include <ptgmed_inc/Board.h>
 
-
+/* Standard variables definitions */
 #include <stdint.h>
 #include <stdbool.h>
+
 /* Tivaware Header files */
 #include "inc/hw_memmap.h"
 #include "inc/hw_ints.h"
@@ -39,6 +40,7 @@
 #include "driverlib/adc.h"
 #include "driverlib/udma.h"
 
+/* CMSIS DSP library */
 #include "arm_math.h"	// Use CMSIS ARM library for fast math operation.
 
 #define TCPPACKETSIZE 256
@@ -48,7 +50,6 @@ uint32_t ui32Ignore=0;
 
 #define DEBUG_DMA
 
-//uint32_t udmaCtrlTable[1024/sizeof(uint32_t)]__attribute__((aligned(1024))); // uDMA control table variable
 uint32_t udmaCtrlTable[1024]__attribute__((aligned(1024))); // uDMA control table variable
 int16_t data_array1[ADC_SAMPLE_BUF_SIZE]={}; // Init to zero in all positions
 int16_t data_array2[ADC_SAMPLE_BUF_SIZE]={};
@@ -121,9 +122,9 @@ void ADC_Seq0_ISR();	//Interrupt service of ADC Sequencer 0
 void ADC_Seq1_ISR();	//Interrupt service of ADC Sequencer 1
 
 void InitSamples();		//Initialize samples
-void RMSCalc_Task();
-void FFTCalc_Task();
-void HeartBeat_Idle();
+void RMSCalc_Task();	//Perform RMS Calculation
+void FFTCalc_Task();	//Perform FFT Calculation
+void HeartBeat_Idle();	//If there is nothing better to do, blynk the user led!!!
 Void tcpWorker(UArg arg0, UArg arg1);
 Void tcpHandler(UArg arg0, UArg arg1);
 
@@ -158,7 +159,8 @@ GPIO_write(DebugPin3,1);
     modeAlternate = uDMAChannelModeGet(UDMA_CHANNEL_ADC0 | UDMA_ALT_SELECT);
 
     // Reload the control structures
-    if ((modePrimary == UDMA_MODE_STOP) && (modeAlternate != UDMA_MODE_STOP)) {
+    if ((modePrimary == UDMA_MODE_STOP) && (modeAlternate != UDMA_MODE_STOP))
+    {
         // Need to reload primary control structure
         uDMAChannelTransferSet(UDMA_CHANNEL_ADC0 | UDMA_PRI_SELECT,
         					   UDMA_MODE_PINGPONG,
@@ -170,7 +172,9 @@ GPIO_write(DebugPin3,1);
         buffer=1;
         if(uDMATransferCount>IGNORE_INIT_SAMPLES) Semaphore_post(data_proc1_Sem); //FIXME: Do it better, it will break down sometime....
 
-    } else if ((modePrimary != UDMA_MODE_STOP) && (modeAlternate == UDMA_MODE_STOP)) {
+    }
+    else if ((modePrimary != UDMA_MODE_STOP) && (modeAlternate == UDMA_MODE_STOP))
+    {
         // Need to reload alternate control structure
         uDMAChannelTransferSet(UDMA_CHANNEL_ADC0 | UDMA_ALT_SELECT,
         					   UDMA_MODE_PINGPONG,
@@ -181,9 +185,6 @@ GPIO_write(DebugPin3,1);
         uDMATransferCount++;
         buffer=2;
         if(uDMATransferCount>IGNORE_INIT_SAMPLES) Semaphore_post(data_proc2_Sem);
-        //for(i=0;i<ADC_SAMPLE_BUF_SIZE;i++) data_proc2[i]=data_array2[i]-ADC_CHANNEL_OFFSET;
-       // Swi_post(RMSCalc_Handle);
-
     }
 
 #ifdef DEBUG_DMA
@@ -209,6 +210,7 @@ GPIO_write(DebugPin3,0);
 void ADC_Seq1_ISR(void)
 {
 //GPIO_write(DebugPin3,1);
+
     uint32_t modePrimary;
     uint32_t modeAlternate;
 
@@ -221,7 +223,8 @@ void ADC_Seq1_ISR(void)
     modeAlternate = uDMAChannelModeGet(UDMA_CH24_ADC1_0 | UDMA_ALT_SELECT);
 
     // Reload the control structures
-    if ((modePrimary == UDMA_MODE_STOP) && (modeAlternate != UDMA_MODE_STOP)) {
+    if ((modePrimary == UDMA_MODE_STOP) && (modeAlternate != UDMA_MODE_STOP))
+    {
         // Need to reload primary control structure
         uDMAChannelTransferSet(UDMA_CH24_ADC1_0 | UDMA_PRI_SELECT,
         					   UDMA_MODE_PINGPONG,
@@ -233,7 +236,9 @@ void ADC_Seq1_ISR(void)
         buffer=3;
        if(uDMATransferCount2>IGNORE_INIT_SAMPLES) Semaphore_post(data_proc3_Sem);
 
-    } else if ((modePrimary != UDMA_MODE_STOP) && (modeAlternate == UDMA_MODE_STOP)) {
+    }
+    else if ((modePrimary != UDMA_MODE_STOP) && (modeAlternate == UDMA_MODE_STOP))
+    {
         // Need to reload alternate control structure
         uDMAChannelTransferSet(UDMA_CH24_ADC1_0 | UDMA_ALT_SELECT,
         					   UDMA_MODE_PINGPONG,
@@ -244,9 +249,6 @@ void ADC_Seq1_ISR(void)
         uDMATransferCount2++;
         buffer=4;
         if(uDMATransferCount>IGNORE_INIT_SAMPLES)Semaphore_post(data_proc4_Sem);
-        //for(i=0;i<ADC_SAMPLE_BUF_SIZE;i++) data_proc2[i]=data_array2[i]-ADC_CHANNEL_OFFSET;
-       // Swi_post(RMSCalc_Handle);
-
     }
 #ifdef DEBUG_DMA
     else {
@@ -270,11 +272,9 @@ void ADC_Seq1_ISR(void)
 
 void InitSamples(void)
 {
-	IntMasterDisable();
 	ADC_init();
     DMA_init();
     TIMER_init();
-    IntMasterEnable();
 }
 
 
