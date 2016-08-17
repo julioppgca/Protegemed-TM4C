@@ -128,74 +128,74 @@ package/%.xdc.inc package/%_configPkg.c package/%.defs.h: %.xdc $(PKGCFGS)
 	@$(MSG) generating interfaces for package configPkg" (because $@ is older than $(firstword $?))" ...
 	$(XSRUN) -f xdc/services/intern/cmd/build.xs $(MK_IDLOPTS) -m package/package.xdc.dep -i package/package.xdc.inc package.xdc
 
-.dlls,em4f .dlls: RTOS_16eth_clean.pem4f
+.dlls,em4f .dlls: RTOS_protegemed.pem4f
 
--include package/cfg/RTOS_16eth_clean_pem4f.mak
--include package/cfg/RTOS_16eth_clean_pem4f.cfg.mak
+-include package/cfg/RTOS_protegemed_pem4f.mak
+-include package/cfg/RTOS_protegemed_pem4f.cfg.mak
 ifeq (,$(MK_NOGENDEPS))
--include package/cfg/RTOS_16eth_clean_pem4f.dep
+-include package/cfg/RTOS_protegemed_pem4f.dep
 endif
-RTOS_16eth_clean.pem4f: package/cfg/RTOS_16eth_clean_pem4f.xdl
+RTOS_protegemed.pem4f: package/cfg/RTOS_protegemed_pem4f.xdl
 	@
 
 
 ifeq (,$(wildcard .libraries,em4f))
-RTOS_16eth_clean.pem4f package/cfg/RTOS_16eth_clean_pem4f.c: .libraries,em4f
+RTOS_protegemed.pem4f package/cfg/RTOS_protegemed_pem4f.c: .libraries,em4f
 endif
 
-package/cfg/RTOS_16eth_clean_pem4f.c package/cfg/RTOS_16eth_clean_pem4f.h package/cfg/RTOS_16eth_clean_pem4f.xdl: override _PROG_NAME := RTOS_16eth_clean.xem4f
-package/cfg/RTOS_16eth_clean_pem4f.c: package/cfg/RTOS_16eth_clean_pem4f.cfg
-package/cfg/RTOS_16eth_clean_pem4f.xdc.inc: package/cfg/RTOS_16eth_clean_pem4f.xdl
-package/cfg/RTOS_16eth_clean_pem4f.xdl package/cfg/RTOS_16eth_clean_pem4f.c: .interfaces
+package/cfg/RTOS_protegemed_pem4f.c package/cfg/RTOS_protegemed_pem4f.h package/cfg/RTOS_protegemed_pem4f.xdl: override _PROG_NAME := RTOS_protegemed.xem4f
+package/cfg/RTOS_protegemed_pem4f.c: package/cfg/RTOS_protegemed_pem4f.cfg
+package/cfg/RTOS_protegemed_pem4f.xdc.inc: package/cfg/RTOS_protegemed_pem4f.xdl
+package/cfg/RTOS_protegemed_pem4f.xdl package/cfg/RTOS_protegemed_pem4f.c: .interfaces
 
 clean:: clean,em4f
-	-$(RM) package/cfg/RTOS_16eth_clean_pem4f.cfg
-	-$(RM) package/cfg/RTOS_16eth_clean_pem4f.dep
-	-$(RM) package/cfg/RTOS_16eth_clean_pem4f.c
-	-$(RM) package/cfg/RTOS_16eth_clean_pem4f.xdc.inc
+	-$(RM) package/cfg/RTOS_protegemed_pem4f.cfg
+	-$(RM) package/cfg/RTOS_protegemed_pem4f.dep
+	-$(RM) package/cfg/RTOS_protegemed_pem4f.c
+	-$(RM) package/cfg/RTOS_protegemed_pem4f.xdc.inc
 
 clean,em4f::
-	-$(RM) RTOS_16eth_clean.pem4f
-.executables,em4f .executables: RTOS_16eth_clean.xem4f
+	-$(RM) RTOS_protegemed.pem4f
+.executables,em4f .executables: RTOS_protegemed.xem4f
 
-RTOS_16eth_clean.xem4f: |RTOS_16eth_clean.pem4f
+RTOS_protegemed.xem4f: |RTOS_protegemed.pem4f
 
--include package/cfg/RTOS_16eth_clean.xem4f.mak
-RTOS_16eth_clean.xem4f: package/cfg/RTOS_16eth_clean_pem4f.oem4f 
+-include package/cfg/RTOS_protegemed.xem4f.mak
+RTOS_protegemed.xem4f: package/cfg/RTOS_protegemed_pem4f.oem4f 
 	$(RM) $@
 	@$(MSG) lnkem4f $@ ...
 	$(RM) $(XDCCFGDIR)/$@.map
-	$(ti.targets.arm.elf.M4F.rootDir)/bin/armcl -fs $(XDCCFGDIR)$(dir $@). -q -u _c_int00 --silicon_version=7M4 -z --strict_compatibility=on  -o $@ package/cfg/RTOS_16eth_clean_pem4f.oem4f   package/cfg/RTOS_16eth_clean_pem4f.xdl  -w -c -m $(XDCCFGDIR)/$@.map -l $(ti.targets.arm.elf.M4F.rootDir)/lib/libc.a
+	$(ti.targets.arm.elf.M4F.rootDir)/bin/armcl -fs $(XDCCFGDIR)$(dir $@). -q -u _c_int00 --silicon_version=7M4 -z --strict_compatibility=on  -o $@ package/cfg/RTOS_protegemed_pem4f.oem4f   package/cfg/RTOS_protegemed_pem4f.xdl  -w -c -m $(XDCCFGDIR)/$@.map -l $(ti.targets.arm.elf.M4F.rootDir)/lib/libc.a
 	
-RTOS_16eth_clean.xem4f: export C_DIR=
-RTOS_16eth_clean.xem4f: PATH:=$(ti.targets.arm.elf.M4F.rootDir)/bin/;$(PATH)
-RTOS_16eth_clean.xem4f: Path:=$(ti.targets.arm.elf.M4F.rootDir)/bin/;$(PATH)
+RTOS_protegemed.xem4f: export C_DIR=
+RTOS_protegemed.xem4f: PATH:=$(ti.targets.arm.elf.M4F.rootDir)/bin/;$(PATH)
+RTOS_protegemed.xem4f: Path:=$(ti.targets.arm.elf.M4F.rootDir)/bin/;$(PATH)
 
-RTOS_16eth_clean.test test,em4f test: RTOS_16eth_clean.xem4f.test
+RTOS_protegemed.test test,em4f test: RTOS_protegemed.xem4f.test
 
-RTOS_16eth_clean.xem4f.test:: RTOS_16eth_clean.xem4f
+RTOS_protegemed.xem4f.test:: RTOS_protegemed.xem4f
 ifeq (,$(_TESTLEVEL))
-	@$(MAKE) -R -r --no-print-directory -f $(XDCROOT)/packages/xdc/bld/xdc.mak _TESTLEVEL=1 RTOS_16eth_clean.xem4f.test
+	@$(MAKE) -R -r --no-print-directory -f $(XDCROOT)/packages/xdc/bld/xdc.mak _TESTLEVEL=1 RTOS_protegemed.xem4f.test
 else
 	@$(MSG) running $<  ...
-	$(call EXEC.RTOS_16eth_clean.xem4f, ) 
+	$(call EXEC.RTOS_protegemed.xem4f, ) 
 endif
 
 clean,em4f::
-	-$(RM) $(wildcard .tmp,RTOS_16eth_clean.xem4f,*)
+	-$(RM) $(wildcard .tmp,RTOS_protegemed.xem4f,*)
 
 
 clean:: clean,em4f
 
 clean,em4f::
-	-$(RM) RTOS_16eth_clean.xem4f
+	-$(RM) RTOS_protegemed.xem4f
 %,copy:
 	@$(if $<,,$(MSG) don\'t know how to build $*; exit 1)
 	@$(MSG) cp $< $@
 	$(RM) $@
 	$(CP) $< $@
-RTOS_16eth_clean_pem4f.oem4f,copy : package/cfg/RTOS_16eth_clean_pem4f.oem4f
-RTOS_16eth_clean_pem4f.sem4f,copy : package/cfg/RTOS_16eth_clean_pem4f.sem4f
+RTOS_protegemed_pem4f.oem4f,copy : package/cfg/RTOS_protegemed_pem4f.oem4f
+RTOS_protegemed_pem4f.sem4f,copy : package/cfg/RTOS_protegemed_pem4f.sem4f
 
 $(XDCCFGDIR)%.c $(XDCCFGDIR)%.h $(XDCCFGDIR)%.xdl: $(XDCCFGDIR)%.cfg $(XDCROOT)/packages/xdc/cfg/Main.xs | .interfaces
 	@$(MSG) "configuring $(_PROG_NAME) from $< ..."

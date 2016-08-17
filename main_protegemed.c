@@ -1,7 +1,6 @@
 /*TODO: Update this discription
- *
+ * Clean code Options.
  */
-
 
 /* XDCtools Header files */
 #include <xdc/std.h>
@@ -23,8 +22,9 @@
 #include <sys/socket.h>
 
 /* Board Header file */
-#include "Board.h"
-#include "ADC_pinout.h"
+#include <ptgmed_inc/ADC_pinout.h>
+#include <ptgmed_inc/Board.h>
+
 
 
 #include <stdint.h>

@@ -37,7 +37,7 @@
 extern "C" {
 #endif
 
-#include "EK_TM4C1294XL.h"
+#include "../ptgmed_inc/EK_TM4C1294XL.h"
 
 #define Board_initEMAC              EK_TM4C1294XL_initEMAC
 #define Board_initGeneral           EK_TM4C1294XL_initGeneral

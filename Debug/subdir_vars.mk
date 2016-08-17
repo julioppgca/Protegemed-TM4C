@@ -7,24 +7,18 @@ CMD_SRCS += \
 ../EK_TM4C1294XL.cmd 
 
 CFG_SRCS += \
-../RTOS_16eth_clean.cfg 
+../RTOS_protegemed.cfg 
 
 C_SRCS += \
-../ADC_pinout.c \
-../EK_TM4C1294XL.c \
-../main16eth_clean.c \
+../main_protegemed.c \
 ../tcpEchoHooks.c 
 
 OBJS += \
-./ADC_pinout.obj \
-./EK_TM4C1294XL.obj \
-./main16eth_clean.obj \
+./main_protegemed.obj \
 ./tcpEchoHooks.obj 
 
 C_DEPS += \
-./ADC_pinout.d \
-./EK_TM4C1294XL.d \
-./main16eth_clean.d \
+./main_protegemed.d \
 ./tcpEchoHooks.d 
 
 GEN_MISC_DIRS += \
@@ -48,21 +42,15 @@ GEN_MISC_DIRS__QUOTED += \
 "configPkg\" 
 
 C_DEPS__QUOTED += \
-"ADC_pinout.d" \
-"EK_TM4C1294XL.d" \
-"main16eth_clean.d" \
+"main_protegemed.d" \
 "tcpEchoHooks.d" 
 
 OBJS__QUOTED += \
-"ADC_pinout.obj" \
-"EK_TM4C1294XL.obj" \
-"main16eth_clean.obj" \
+"main_protegemed.obj" \
 "tcpEchoHooks.obj" 
 
 C_SRCS__QUOTED += \
-"../ADC_pinout.c" \
-"../EK_TM4C1294XL.c" \
-"../main16eth_clean.c" \
+"../main_protegemed.c" \
 "../tcpEchoHooks.c" 
 
 
