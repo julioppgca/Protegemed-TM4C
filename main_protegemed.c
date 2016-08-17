@@ -199,7 +199,7 @@ GPIO_write(DebugPin3,1);
     	Log_info1("DMA - MemScatter: %d", UDMA_MODE_MEM_SCATTER_GATHER);
     	Log_info1("DMA - PerScatter: %d\n",UDMA_MODE_PER_SCATTER_GATHER);
     	Log_info0("DMA - Reloading Settings ...");
-    	DMA_init(); // Call DMA_init again to refresh the settings...
+    	DMA_init(); // Call DMA_init again to refresh the settings, this is very important in DEBUG mode!
     }
 #endif
 
@@ -261,7 +261,7 @@ void ADC_Seq1_ISR(void)
     	Log_info1("DMA - MemScatter: %d", UDMA_MODE_MEM_SCATTER_GATHER);
     	Log_info1("DMA - PerScatter: %d\n",UDMA_MODE_PER_SCATTER_GATHER);
     	Log_info0("DMA - Reloading Settings ...");
-    	DMA_init(); // Call DMA_init again to refresh the settings...
+    	DMA_init(); // Call DMA_init again to refresh the settings, this is very important in DEBUG mode!
     }
 #endif
 
