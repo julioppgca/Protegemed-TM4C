@@ -217,9 +217,9 @@ main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packa
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/bits/sockaddr.h
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/serrno.h
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/netinet/in.h
-main_protegemed.obj: ../inc/Board.h
-main_protegemed.obj: ../inc/EK_TM4C1294XL.h
-main_protegemed.obj: ../inc/ADC_pinout.h
+main_protegemed.obj: C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Samples_config.h
+main_protegemed.obj: C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Board.h
+main_protegemed.obj: C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/../ptgmed_inc/EK_TM4C1294XL.h
 main_protegemed.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdbool.h
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/inc/hw_memmap.h
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/inc/hw_ints.h
@@ -458,9 +458,9 @@ C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/so
 C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/bits/sockaddr.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/serrno.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/netinet/in.h: 
-../inc/Board.h: 
-../inc/EK_TM4C1294XL.h: 
-../inc/ADC_pinout.h: 
+C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Samples_config.h: 
+C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Board.h: 
+C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/../ptgmed_inc/EK_TM4C1294XL.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdbool.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/inc/hw_memmap.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/inc/hw_ints.h: 

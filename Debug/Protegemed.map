@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v15.12.1                    
 ******************************************************************************
->> Linked Wed Aug 17 15:59:17 2016
+>> Linked Wed Aug 17 18:10:18 2016
 
 OUTPUT FILE NAME:   <Protegemed.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 00012e91
@@ -75,7 +75,7 @@ section   page    origin      length       input sections
                   00006f14    000001ac               : lliin.oem4f (.text:LLIRxPacket)
                   000070c0    000001a4     sysbios.aem4f : BIOS.obj (.text:ti_sysbios_family_arm_lm4_Timer_start__E)
                   00007264    0000019c     os.aem4f : mem.oem4f (.text:mmAlloc)
-                  00007400    00000198     main_protegemed.obj (.text:ADC_init)
+                  00007400    00000198     Samples_config.obj (.text:ADC_init)
                   00007598    00000198     stk.aem4f : igmp.oem4f (.text:IGMPInput)
                   00007730    00000198     sysbios.aem4f : BIOS.obj (.text:ti_sysbios_family_arm_m3_Hwi_dispatchC__I)
                   000078c8    00000190     stk.aem4f : sock.oem4f (.text:SockNew)
@@ -163,7 +163,7 @@ section   page    origin      length       input sections
                   0000c360    000000e8     os.aem4f : task.oem4f (.text:TaskSetEnv)
                   0000c448    000000e8     dsplib-cm4f.lib : arm_cfft_f32.obj (.text:arm_cfft_f32)
                   0000c530    000000e8     RTOS_protegemed_pem4f.oem4f (.text:ti_uia_loggers_LoggerStopMode_write2__E)
-                  0000c618    000000e4     main_protegemed.obj (.text:DMA_init)
+                  0000c618    000000e4     Samples_config.obj (.text:DMA_init)
                   0000c6fc    000000e4     RTOS_protegemed_pem4f.oem4f (.text:ti_uia_loggers_LoggerStopMode_write1__E)
                   0000c7e0    000000e0     stk.aem4f : tcptime.oem4f (.text:TcpTimeoutRexmt)
                   0000c8c0    000000dc               : sb.oem4f (.text:SBWrite)
@@ -348,7 +348,7 @@ section   page    origin      length       input sections
                   00011d20    00000068     stk.aem4f : socket.oem4f (.text:NDK_socket)
                   00011d88    00000068               : pbm.oem4f (.text:PBM_open)
                   00011df0    00000068               : sock.oem4f (.text:SockListen)
-                  00011e58    00000068     main_protegemed.obj (.text:TIMER_init)
+                  00011e58    00000068     Samples_config.obj (.text:TIMER_init)
                   00011ec0    00000068     stk.aem4f : rtable.oem4f (.text:_RtNodeInsert)
                   00011f28    00000068     rtsv7M4_T_le_v4SPD16_eabi.lib : trgmsg.obj (.text)
                   00011f90    00000068     sysbios.aem4f : BIOS.obj (.text:ti_sysbios_utils_Load_addTask__E)
@@ -1465,16 +1465,17 @@ MODULE SUMMARY
        Module                        code    ro data   rw data
        ------                        ----    -------   -------
     .\
-       main_protegemed.obj           7658    51        38992  
+       main_protegemed.obj           6918    51        38992  
        tcpEchoHooks.obj              138     0         0      
     +--+-----------------------------+-------+---------+---------+
-       Total:                        7796    51        38992  
+       Total:                        7056    51        38992  
                                                               
-    .\Inc\
+    .\ptgmed_inc\
+       Samples_config.obj            740     0         0      
        EK_TM4C1294XL.obj             492     60        58     
        ADC_pinout.obj                256     0         0      
     +--+-----------------------------+-------+---------+---------+
-       Total:                        748     60        58     
+       Total:                        1488    60        58     
                                                               
     C:\Users\skelter\Protegemed\Protegemed\Debug\configPkg\package\cfg\
        RTOS_protegemed_pem4f.oem4f   4573    11121     71714  

@@ -12,8 +12,9 @@ GEN_CMDS__FLAG := -l"configPkg/linker.cmd"
 ORDERED_OBJS += \
 "./main_protegemed.obj" \
 "./tcpEchoHooks.obj" \
-"./Inc/ADC_pinout.obj" \
-"./Inc/EK_TM4C1294XL.obj" \
+"./ptgmed_inc/ADC_pinout.obj" \
+"./ptgmed_inc/EK_TM4C1294XL.obj" \
+"./ptgmed_inc/Samples_config.obj" \
 "../EK_TM4C1294XL.cmd" \
 $(GEN_CMDS__FLAG) \
 -l"C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/grlib/ccs/Debug/grlib.lib" \
@@ -30,9 +31,9 @@ RMDIR := RMDIR /S/Q
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
--include Inc/subdir_vars.mk
+-include ptgmed_inc/subdir_vars.mk
 -include subdir_rules.mk
--include Inc/subdir_rules.mk
+-include ptgmed_inc/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -162,8 +163,8 @@ Protegemed.hex: $(EXE_OUTPUTS)
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(BIN_OUTPUTS__QUOTED)$(GEN_OPTS__QUOTED)$(GEN_CMDS__QUOTED)
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
-	-$(RM) "main_protegemed.d" "tcpEchoHooks.d" "Inc\ADC_pinout.d" "Inc\EK_TM4C1294XL.d" 
-	-$(RM) "main_protegemed.obj" "tcpEchoHooks.obj" "Inc\ADC_pinout.obj" "Inc\EK_TM4C1294XL.obj" 
+	-$(RM) "main_protegemed.d" "tcpEchoHooks.d" "ptgmed_inc\ADC_pinout.d" "ptgmed_inc\EK_TM4C1294XL.d" "ptgmed_inc\Samples_config.d" 
+	-$(RM) "main_protegemed.obj" "tcpEchoHooks.obj" "ptgmed_inc\ADC_pinout.obj" "ptgmed_inc\EK_TM4C1294XL.obj" "ptgmed_inc\Samples_config.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

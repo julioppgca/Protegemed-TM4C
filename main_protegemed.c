@@ -22,9 +22,8 @@
 #include <sys/socket.h>
 
 /* Board Header file */
-#include <ptgmed_inc/ADC_pinout.h>
+#include <ptgmed_inc/Samples_config.h>
 #include <ptgmed_inc/Board.h>
-
 
 
 #include <stdint.h>
@@ -45,16 +44,6 @@
 #define TCPPACKETSIZE 256
 #define NUMTCPWORKERS 3
 
-#define CLK_FREQ            120000000	// Main CPU clock -> 120MHz
-#define SAMPLE_FREQ         15360		// 15360KHz, ADC Samples per Second -> 1MSPS
-#define CH_SAMPLE_NUMBER	256			// Samples per channel
-#define ADC_SAMPLE_BUF_SIZE 1024 		// Max uDMA transfer buffer, sucks... NUMBER_OF_CHANNELS * CH_SAMPLE_NUMBER	// Buffer size for uDMA
-#define OVER_SAMPLE_VALUE	16			// Over sample value -> 64 avereage samples in 1MSPS, sample every 64us.
-#define ADC_CHANNEL_OFFSET  2048		// Offset of the ADC channel -> 4096/2 = 2048
-#define ADC_INPUT_SCALE		3.3/4095	// Vmax / ADC_Resolution -> 3.3V/(2^12-1)
-#define NUMBER_OF_CHANNELS	8			// Max. 4
-
-#define IGNORE_INIT_SAMPLES	2			// Leave DMA and ADC initialize, 2 is good enough
 uint32_t ui32Ignore=0;
 
 #define DEBUG_DMA
@@ -128,12 +117,10 @@ uint32_t uDMATransferCount2 = 0;
 float32_t	wave1[CH_SAMPLE_NUMBER]={};
 float32_t	wave2[CH_SAMPLE_NUMBER]={};
 
-void ADC_Seq0_ISR();
-void ADC_Seq1_ISR();
-void TIMER_init();
-void ADC_init();
-void DMA_init();
-void InitSamples();
+void ADC_Seq0_ISR();	//Interrupt service of ADC Sequencer 0
+void ADC_Seq1_ISR();	//Interrupt service of ADC Sequencer 1
+
+void InitSamples();		//Initialize samples
 void RMSCalc_Task();
 void FFTCalc_Task();
 void HeartBeat_Idle();
@@ -281,226 +268,6 @@ void ADC_Seq1_ISR(void)
 //GPIO_write(DebugPin3,0);
 }
 
-void TIMER_init(void)
-{
-	// Use Timer for both ADC0 and ADC1
-
-     uint32_t ui32ClockFreq;
-
-    // Set clock frequency
-    ui32ClockFreq = SysCtlClockFreqSet(SYSCTL_XTAL_25MHZ | SYSCTL_OSC_MAIN |
-    SYSCTL_USE_PLL | SYSCTL_CFG_VCO_480, CLK_FREQ);
-
-    // Enable timer peripheral clock
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);
-    SysCtlPeripheralReset(SYSCTL_PERIPH_TIMER0);
-    while (!SysCtlPeripheralReady(SYSCTL_PERIPH_TIMER0));
-
-    // Configure the timer
-    TimerConfigure(TIMER0_BASE, TIMER_CFG_A_PERIODIC_UP); // 12000 -> 78.1hz //14000 -> 67.6 15625->60.2
-    TimerLoadSet(TIMER0_BASE, TIMER_A, (ui32ClockFreq / SAMPLE_FREQ)); // TODO: REvisar isso. (OK 7800)
-
-    // Enable timer to trigger ADC
-    TimerControlTrigger(TIMER0_BASE, TIMER_A, true);
-
-    // Enable event to trigger ADC
-    TimerADCEventSet(TIMER0_BASE, TIMER_ADC_TIMEOUT_A);
-
-    // Enable timer
-    TimerEnable(TIMER0_BASE, TIMER_A);
-}
-
-void ADC_init(void)
-{
-
-	/* ----------- ADC0 Initialization-----------*/
-
-    // Enable ADC peripheral clock
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC0);
-    SysCtlPeripheralReset(SYSCTL_PERIPH_ADC0);
-    while (!SysCtlPeripheralReady(SYSCTL_PERIPH_ADC0));
-
-    // Configure the ADC to use PLL at 480 MHz divided by 15 to get an ADC
-    // clock of 32 MHz, 2MSPS.
-    ADCClockConfigSet(ADC0_BASE,  ADC_CLOCK_SRC_PLL | ADC_CLOCK_RATE_FULL,  15);
-    //ADCClockConfigSet(ADC0_BASE,  ADC_CLOCK_SRC_PLL | ADC_CLOCK_RATE_FULL, 4 );
-
-    // Use Hardware Oversample
-    ADCHardwareOversampleConfigure(ADC0_BASE, OVER_SAMPLE_VALUE);
-
-    // Set ADC pinout, need external file -> #include "ADC_pinout.h"
-    PinoutSetADC();
-
-    // Disable before configuring
-    ADCSequenceDisable(ADC0_BASE, 0);
-
-    // Configure ADC0 sequencer 0:
-    // Triggered by timer, highest priority (0)
-    ADCSequenceConfigure(ADC0_BASE, 0, ADC_TRIGGER_TIMER, 0);
-
-    // Configure ADC0 sequencer 0 step 0:
-    // Channel 8, last step insequence, causes interrupt when step is complete
-    ADCSequenceStepConfigure(ADC0_BASE, 0, 0, ADC_CTL_CH0);
-    ADCSequenceStepConfigure(ADC0_BASE, 0, 1, ADC_CTL_CH1);
-    ADCSequenceStepConfigure(ADC0_BASE, 0, 2, ADC_CTL_CH2);
-    ADCSequenceStepConfigure(ADC0_BASE, 0, 3, ADC_CTL_CH3);
-    ADCSequenceStepConfigure(ADC0_BASE, 0, 4, ADC_CTL_CH4);
-    ADCSequenceStepConfigure(ADC0_BASE, 0, 5, ADC_CTL_CH5);
-    ADCSequenceStepConfigure(ADC0_BASE, 0, 6, ADC_CTL_CH6);
-    ADCSequenceStepConfigure(ADC0_BASE, 0, 7, ADC_CTL_CH7
-    						| ADC_CTL_END | ADC_CTL_IE);
-
-    // Analog reference is internal
-    ADCReferenceSet(ADC0_BASE, ADC_REF_INT);
-
-    //  Enable ADC interrupt
-    ADCIntEnableEx(ADC0_BASE, ADC_INT_DMA_SS0);
-    IntEnable(INT_ADC0SS0);
-
-    // Enable ADC to use uDMA
-    ADCSequenceDMAEnable(ADC0_BASE, 0);
-
-    // Enable ADC
-    ADCSequenceEnable(ADC0_BASE, 0);
-
-
-    /* ----------- ADC1 Initialization-----------*/
-
-    // Enable ADC 1 peripheral clock
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC1);
-    SysCtlPeripheralReset(SYSCTL_PERIPH_ADC1);
-    while (!SysCtlPeripheralReady(SYSCTL_PERIPH_ADC1));
-
-    //ADCClockConfigSet(ADC0_BASE,  ADC_CLOCK_SRC_PLL | ADC_CLOCK_RATE_FULL, 4 );
-
-    // Use Hardware Oversample
-    ADCHardwareOversampleConfigure(ADC1_BASE, OVER_SAMPLE_VALUE);
-
-    // Set ADC pinout, need external file -> #include "ADC_pinout.h"
-    //PinoutSetADC();
-
-    // Disable before configuring
-    ADCSequenceDisable(ADC1_BASE, 0);
-
-    // Configure ADC0 sequencer 0:
-    // Triggered by timer, highest priority (0)
-    ADCSequenceConfigure(ADC1_BASE, 0, ADC_TRIGGER_TIMER, 0);
-
-    // Configure ADC0 sequencer 0 step 0:
-    // Channel 8, last step insequence, causes interrupt when step is complete
-    ADCSequenceStepConfigure(ADC1_BASE, 0, 0, ADC_CTL_CH8);
-    ADCSequenceStepConfigure(ADC1_BASE, 0, 1, ADC_CTL_CH9);
-    ADCSequenceStepConfigure(ADC1_BASE, 0, 2, ADC_CTL_CH10);
-    ADCSequenceStepConfigure(ADC1_BASE, 0, 3, ADC_CTL_CH11);
-    ADCSequenceStepConfigure(ADC1_BASE, 0, 4, ADC_CTL_CH12);
-    ADCSequenceStepConfigure(ADC1_BASE, 0, 5, ADC_CTL_CH13);
-    ADCSequenceStepConfigure(ADC1_BASE, 0, 6, ADC_CTL_CH14);
-    ADCSequenceStepConfigure(ADC1_BASE, 0, 7, ADC_CTL_CH15
-    						| ADC_CTL_END | ADC_CTL_IE);
-
-    // Analog reference is internal
-    ADCReferenceSet(ADC1_BASE, ADC_REF_INT);
-
-    //  Enable ADC interrupt
-    ADCIntEnableEx(ADC1_BASE, ADC_INT_DMA_SS0);
-    IntEnable(INT_ADC1SS0);
-
-    // Enable ADC to use uDMA
-    ADCSequenceDMAEnable(ADC1_BASE, 0);
-
-    // Enable ADC
-    ADCSequenceEnable(ADC1_BASE, 0);
-}
-
-void DMA_init(void)
-{
-
-    /* Enable uDMA clock */
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_UDMA);
-    while (!SysCtlPeripheralReady(SYSCTL_PERIPH_UDMA));
-
-    /* Enable uDMA */
-    uDMAEnable();
-
-    // Use channel 24 for ADC1, must replace all 'UDMA_CHANNEL_ADC0' by 'UDMA_CH24_ADC1_0'
-    uDMAChannelAssign(UDMA_CH24_ADC1_0);
-
-    /* Set the control table for uDMA */
-    uDMAControlBaseSet(udmaCtrlTable);
-
-    /* Disable unneeded attributes of the uDMA channels */
-    uDMAChannelAttributeDisable(UDMA_CHANNEL_ADC0, UDMA_ATTR_ALL);
-
-    /* Disable unneeded attributes of the uDMA channels -- ADC1 */
-    uDMAChannelAttributeDisable(UDMA_CH24_ADC1_0, UDMA_ATTR_ALL);
-
-    // Only allow burst transfers
-	uDMAChannelAttributeEnable(UDMA_CHANNEL_ADC0, UDMA_ATTR_USEBURST);
-
-	// Only allow burst transfers ADC1
-	uDMAChannelAttributeEnable(UDMA_CH24_ADC1_0, UDMA_ATTR_USEBURST);
-
-
-    // Channel A udma control set
-    uDMAChannelControlSet(UDMA_CHANNEL_ADC0 | UDMA_PRI_SELECT,
-    					  UDMA_SIZE_16 |
-						  UDMA_SRC_INC_NONE |
-						  UDMA_DST_INC_16 |
-						  UDMA_ARB_8);
-
-    uDMAChannelControlSet(UDMA_CHANNEL_ADC0 | UDMA_ALT_SELECT,
-    					  UDMA_SIZE_16 |
-						  UDMA_SRC_INC_NONE |
-						  UDMA_DST_INC_16 |
-						  UDMA_ARB_8);
-
-    // Channel A transfer set
-    uDMAChannelTransferSet(UDMA_CHANNEL_ADC0 | UDMA_PRI_SELECT,
-    					   UDMA_MODE_PINGPONG,
-						   (void *) (ADC0_BASE + ADC_O_SSFIFO0),
-						   data_array1,
-						   ADC_SAMPLE_BUF_SIZE);
-
-    uDMAChannelTransferSet(UDMA_CHANNEL_ADC0 | UDMA_ALT_SELECT,
-    					   UDMA_MODE_PINGPONG,
-						   (void *) (ADC0_BASE + ADC_O_SSFIFO0),
-						   data_array2,
-						   ADC_SAMPLE_BUF_SIZE);
-
-    // Channel A udma control set  for ADC1
-       uDMAChannelControlSet(UDMA_CH24_ADC1_0 | UDMA_PRI_SELECT,
-       					  UDMA_SIZE_16 |
-   						  UDMA_SRC_INC_NONE |
-   						  UDMA_DST_INC_16 |
-   						  UDMA_ARB_8);
-
-       uDMAChannelControlSet(UDMA_CH24_ADC1_0 | UDMA_ALT_SELECT,
-       					  UDMA_SIZE_16 |
-   						  UDMA_SRC_INC_NONE |
-   						  UDMA_DST_INC_16 |
-   						  UDMA_ARB_8);
-
-       // Channel A transfer set for ADC1
-       uDMAChannelTransferSet(UDMA_CH24_ADC1_0 | UDMA_PRI_SELECT,
-       					   UDMA_MODE_PINGPONG,
-   						   (void *) (ADC1_BASE + ADC_O_SSFIFO0),
-   						   data_array3,
-   						   ADC_SAMPLE_BUF_SIZE);
-
-       uDMAChannelTransferSet(UDMA_CH24_ADC1_0 | UDMA_ALT_SELECT,
-       					   UDMA_MODE_PINGPONG,
-   						   (void *) (ADC1_BASE + ADC_O_SSFIFO0),
-   						   data_array4,
-   						   ADC_SAMPLE_BUF_SIZE);
-
-    /* Enable the channels */
-    // Channel for ADC0
-    uDMAChannelEnable(UDMA_CHANNEL_ADC0);
-
-    // Channel for ADC1
-    uDMAChannelEnable(UDMA_CH24_ADC1_0);
-}
-
 void InitSamples(void)
 {
 	IntMasterDisable();
@@ -530,7 +297,7 @@ void RMSCalc_Task(void)
 				data_proc5[i]=((float)data_array1[j+5]-ADC_CHANNEL_OFFSET) ;
 				data_proc6[i]=((float)data_array1[j+6]-ADC_CHANNEL_OFFSET) ;
 				data_proc7[i]=((float)data_array1[j+7]-ADC_CHANNEL_OFFSET) ;
-				j+=NUMBER_OF_CHANNELS;
+				j+=NUMBER_OF_CH_ADC;
 				}
 	GPIO_write(DebugPin1,0);
 
@@ -547,7 +314,7 @@ void RMSCalc_Task(void)
 				data_proc13[i]=((float)data_array3[j+5]-ADC_CHANNEL_OFFSET) ;
 				data_proc14[i]=((float)data_array3[j+6]-ADC_CHANNEL_OFFSET) ;
 				data_proc15[i]=((float)data_array3[j+7]-ADC_CHANNEL_OFFSET) ;
-				j+=NUMBER_OF_CHANNELS;
+				j+=NUMBER_OF_CH_ADC;
 				}
 	GPIO_write(DebugPin2,0);
 
@@ -564,7 +331,7 @@ void RMSCalc_Task(void)
 				data_proc5[i]=((float)data_array2[j+5]-ADC_CHANNEL_OFFSET) ;
 				data_proc6[i]=((float)data_array2[j+6]-ADC_CHANNEL_OFFSET) ;
 				data_proc7[i]=((float)data_array2[j+7]-ADC_CHANNEL_OFFSET) ;
-				j+=NUMBER_OF_CHANNELS;
+				j+=NUMBER_OF_CH_ADC;
 				}
 
 		// Use CMSIS to multiply float, way faster....
@@ -606,7 +373,7 @@ void RMSCalc_Task(void)
 					data_proc13[i]=((float)data_array4[j+5]-ADC_CHANNEL_OFFSET);
 					data_proc14[i]=((float)data_array4[j+6]-ADC_CHANNEL_OFFSET);
 					data_proc15[i]=((float)data_array4[j+7]-ADC_CHANNEL_OFFSET);
-					j+=NUMBER_OF_CHANNELS;
+					j+=NUMBER_OF_CH_ADC;
 					}
 
 			// Use CMSIS to multiply float, way faster....
