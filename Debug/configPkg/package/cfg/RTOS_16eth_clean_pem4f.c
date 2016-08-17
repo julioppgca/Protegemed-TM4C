@@ -2352,7 +2352,7 @@ __FAR__ const xdc_SizeT ti_sysbios_utils_Load_Module_State_taskList__O = offseto
  *  Define absolute path prefix for this executable's
  *  configuration generated files.
  */
-xdc__META(__ASM__, "@(#)__ASM__ = C:/Users/skelter/workspace_v6_1_3/ADC_DMA16ch_ETH_Clean/Debug/configPkg/package/cfg/RTOS_16eth_clean_pem4f");
+xdc__META(__ASM__, "@(#)__ASM__ = C:/Users/skelter/Protegemed/Protegemed/Debug/configPkg/package/cfg/RTOS_16eth_clean_pem4f");
 
 /*
  *  ======== __ISA__ ========

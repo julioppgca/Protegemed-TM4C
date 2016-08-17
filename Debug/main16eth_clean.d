@@ -93,7 +93,7 @@ main16eth_clean.obj: C:/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IModule
 main16eth_clean.obj: C:/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Types.h
 main16eth_clean.obj: C:/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Log__epilogue.h
 main16eth_clean.obj: C:/ti/xdctools_3_32_00_06_core/packages/xdc/cfg/global.h
-main16eth_clean.obj: C:/Users/skelter/workspace_v6_1_3/ADC_DMA16ch_ETH_Clean/Debug/configPkg/package/cfg/RTOS_16eth_clean_pem4f.h
+main16eth_clean.obj: C:/Users/skelter/Protegemed/Protegemed/Debug/configPkg/package/cfg/RTOS_16eth_clean_pem4f.h
 main16eth_clean.obj: C:/ti/tirtos_tivac_2_16_01_14/products/bios_6_45_02_31/packages/ti/sysbios/family/arm/m3/Hwi.h
 main16eth_clean.obj: C:/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Types.h
 main16eth_clean.obj: C:/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IInstance.h
@@ -334,7 +334,7 @@ C:/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IModule.h:
 C:/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Types.h: 
 C:/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Log__epilogue.h: 
 C:/ti/xdctools_3_32_00_06_core/packages/xdc/cfg/global.h: 
-C:/Users/skelter/workspace_v6_1_3/ADC_DMA16ch_ETH_Clean/Debug/configPkg/package/cfg/RTOS_16eth_clean_pem4f.h: 
+C:/Users/skelter/Protegemed/Protegemed/Debug/configPkg/package/cfg/RTOS_16eth_clean_pem4f.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/bios_6_45_02_31/packages/ti/sysbios/family/arm/m3/Hwi.h: 
 C:/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Types.h: 
 C:/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IInstance.h: 

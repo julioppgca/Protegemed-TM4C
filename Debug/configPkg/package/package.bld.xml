@@ -7,7 +7,7 @@
         <srcFile name="package/cfg/RTOS_16eth_clean_pem4f.c"/>
     </sources>
     <configscripts>
-        <srcFile name="C:/Users/skelter/workspace_v6_1_3/ADC_DMA16ch_ETH_Clean/RTOS_16eth_clean.cfg"/>
+        <srcFile name="C:/Users/skelter/Protegemed/Protegemed/RTOS_16eth_clean.cfg"/>
     </configscripts>
     <makefiles>
         <srcFile name="package.mak" src="package.bld"/>
@@ -44,7 +44,7 @@
         isPartial="false"
         xCfgScript="package/cfg/RTOS_16eth_clean_pem4f.cfg"
         xCfgPrefix="package/cfg/RTOS_16eth_clean_pem4f"
-        cfgScript="C:/Users/skelter/workspace_v6_1_3/ADC_DMA16ch_ETH_Clean/RTOS_16eth_clean.cfg"
+        cfgScript="C:/Users/skelter/Protegemed/Protegemed/RTOS_16eth_clean.cfg"
         cfgArgs="null"
         />
     </configurations>
@@ -56,7 +56,7 @@
         profile="release"
         xCfgScript="package/cfg/RTOS_16eth_clean_pem4f.cfg"
         xCfgPrefix="package/cfg/RTOS_16eth_clean_pem4f"
-        cfgScript="C:/Users/skelter/workspace_v6_1_3/ADC_DMA16ch_ETH_Clean/RTOS_16eth_clean.cfg"
+        cfgScript="C:/Users/skelter/Protegemed/Protegemed/RTOS_16eth_clean.cfg"
         cfgArgs="null"
         />
     </executables>
