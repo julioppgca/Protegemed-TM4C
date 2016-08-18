@@ -1,8 +1,13 @@
+#include <xdc/cfg/global.h> //to get access to statically declared variables in RTOS_protegemed.cfg
+#include <ti/drivers/GPIO.h>
+
 #include <ptgmed_inc/ADC_pinout.h>
 #include <ptgmed_inc/Samples_config.h>
+#include <ptgmed_inc/Board.h>
 
 #include <stdint.h>
 #include <stdbool.h>
+
 /* Tivaware Header files */
 #include "inc/hw_memmap.h"
 #include "inc/hw_ints.h"
@@ -19,6 +24,8 @@ extern int16_t data_array1[ADC_SAMPLE_BUF_SIZE]={}; // Init to zero in all posit
 extern int16_t data_array2[ADC_SAMPLE_BUF_SIZE]={};
 extern int16_t data_array3[ADC_SAMPLE_BUF_SIZE]={};
 extern int16_t data_array4[ADC_SAMPLE_BUF_SIZE]={};
+extern uint32_t uDMATransferCount;
+extern uint32_t uDMATransferCount2;
 
 void TIMER_init(void)
 {
@@ -238,4 +245,126 @@ void DMA_init(void)
 
     // Channel for ADC1
     uDMAChannelEnable(UDMA_CH24_ADC1_0);
+}
+
+
+void ADC_Seq0_ISR(void)
+{
+GPIO_write(DebugPin3,1);
+    uint32_t modePrimary;
+    uint32_t modeAlternate;
+
+    // Clear the interrupt
+    ADCIntClearEx(ADC0_BASE, ADC_INT_DMA_SS0);
+
+    // Get the mode statuses of primary and alternate control structures
+    modePrimary = uDMAChannelModeGet(UDMA_CHANNEL_ADC0 | UDMA_PRI_SELECT);
+    modeAlternate = uDMAChannelModeGet(UDMA_CHANNEL_ADC0 | UDMA_ALT_SELECT);
+
+    // Reload the control structures
+    if ((modePrimary == UDMA_MODE_STOP) && (modeAlternate != UDMA_MODE_STOP))
+    {
+        // Need to reload primary control structure
+        uDMAChannelTransferSet(UDMA_CHANNEL_ADC0 | UDMA_PRI_SELECT,
+        					   UDMA_MODE_PINGPONG,
+							   (void *) (ADC0_BASE + ADC_O_SSFIFO0),
+							   data_array1,
+							   ADC_SAMPLE_BUF_SIZE);
+
+        uDMATransferCount++;
+        if(uDMATransferCount>IGNORE_INIT_SAMPLES) Semaphore_post(data_proc1_Sem); //FIXME: Do it better, it will break down sometime....
+
+    }
+    else if ((modePrimary != UDMA_MODE_STOP) && (modeAlternate == UDMA_MODE_STOP))
+    {
+        // Need to reload alternate control structure
+        uDMAChannelTransferSet(UDMA_CHANNEL_ADC0 | UDMA_ALT_SELECT,
+        					   UDMA_MODE_PINGPONG,
+							   (void *) (ADC0_BASE + ADC_O_SSFIFO0),
+							   data_array2,
+							   ADC_SAMPLE_BUF_SIZE);
+
+        uDMATransferCount++;
+        if(uDMATransferCount>IGNORE_INIT_SAMPLES) Semaphore_post(data_proc2_Sem);
+    }
+
+#ifdef DEBUG_DMA
+    else {
+        // Either both still not stopped, or both stopped. This is an error
+    	Log_info1("DMA - Error in uDMA control structure modes\n uDMATransferCount: %d\n", uDMATransferCount);
+    	Log_info1("DMA - Primary mode: %d \n", modePrimary);
+    	Log_info1("DMA - Alternate mode: %d\n", modeAlternate);
+    	Log_info1("DMA - For reference: Stop: %d", UDMA_MODE_STOP);
+    	Log_info1("DMA - Basic: %d", UDMA_MODE_BASIC);
+    	Log_info1("DMA - Auto: %d", UDMA_MODE_AUTO);
+    	Log_info1("DMA - PingPong: %d", UDMA_MODE_PINGPONG);
+    	Log_info1("DMA - MemScatter: %d", UDMA_MODE_MEM_SCATTER_GATHER);
+    	Log_info1("DMA - PerScatter: %d\n",UDMA_MODE_PER_SCATTER_GATHER);
+    	Log_info0("DMA - Reloading Settings ...");
+    	DMA_init(); // Call DMA_init again to refresh the settings, this is very important in DEBUG mode!
+    }
+#endif
+
+GPIO_write(DebugPin3,0);
+}
+
+void ADC_Seq1_ISR(void)
+{
+//GPIO_write(DebugPin3,1);
+
+    uint32_t modePrimary;
+    uint32_t modeAlternate;
+
+    // Clear the interrupt
+    ADCIntClearEx(ADC1_BASE, ADC_INT_DMA_SS0);
+
+
+    // Get the mode statuses of primary and alternate control structures
+    modePrimary = uDMAChannelModeGet(UDMA_CH24_ADC1_0 | UDMA_PRI_SELECT);
+    modeAlternate = uDMAChannelModeGet(UDMA_CH24_ADC1_0 | UDMA_ALT_SELECT);
+
+    // Reload the control structures
+    if ((modePrimary == UDMA_MODE_STOP) && (modeAlternate != UDMA_MODE_STOP))
+    {
+        // Need to reload primary control structure
+        uDMAChannelTransferSet(UDMA_CH24_ADC1_0 | UDMA_PRI_SELECT,
+        					   UDMA_MODE_PINGPONG,
+							   (void *) (ADC1_BASE + ADC_O_SSFIFO0),
+							   data_array3,
+							   ADC_SAMPLE_BUF_SIZE);
+
+        uDMATransferCount2++;
+        if(uDMATransferCount2>IGNORE_INIT_SAMPLES) Semaphore_post(data_proc3_Sem);
+
+    }
+    else if ((modePrimary != UDMA_MODE_STOP) && (modeAlternate == UDMA_MODE_STOP))
+    {
+        // Need to reload alternate control structure
+        uDMAChannelTransferSet(UDMA_CH24_ADC1_0 | UDMA_ALT_SELECT,
+        					   UDMA_MODE_PINGPONG,
+							   (void *) (ADC1_BASE + ADC_O_SSFIFO0),
+							   data_array4,
+							   ADC_SAMPLE_BUF_SIZE);
+
+        uDMATransferCount2++;
+        if(uDMATransferCount>IGNORE_INIT_SAMPLES)Semaphore_post(data_proc4_Sem);
+    }
+#ifdef DEBUG_DMA
+    else {
+        // Either both still not stopped, or both stopped. This is an error
+    	Log_info1("DMA - Error in uDMA control structure modes\n uDMATransferCount: %d\n", uDMATransferCount);
+    	Log_info1("DMA - Primary mode: %d \n", modePrimary);
+    	Log_info1("DMA - Alternate mode: %d\n", modeAlternate);
+    	Log_info1("DMA - For reference: Stop: %d", UDMA_MODE_STOP);
+    	Log_info1("DMA - Basic: %d", UDMA_MODE_BASIC);
+    	Log_info1("DMA - Auto: %d", UDMA_MODE_AUTO);
+    	Log_info1("DMA - PingPong: %d", UDMA_MODE_PINGPONG);
+    	Log_info1("DMA - MemScatter: %d", UDMA_MODE_MEM_SCATTER_GATHER);
+    	Log_info1("DMA - PerScatter: %d\n",UDMA_MODE_PER_SCATTER_GATHER);
+    	Log_info0("DMA - Reloading Settings ...");
+    	DMA_init(); // Call DMA_init again to refresh the settings, this is very important in DEBUG mode!
+    }
+#endif
+
+//GPIO_write(DebugPin3,0);
 }

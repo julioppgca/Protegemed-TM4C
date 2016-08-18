@@ -218,6 +218,7 @@ main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packa
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/serrno.h
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/netinet/in.h
 main_protegemed.obj: C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Samples_config.h
+main_protegemed.obj: C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Network_config.h
 main_protegemed.obj: C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Board.h
 main_protegemed.obj: C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/../ptgmed_inc/EK_TM4C1294XL.h
 main_protegemed.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdbool.h
@@ -459,6 +460,7 @@ C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/bi
 C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/serrno.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/netinet/in.h: 
 C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Samples_config.h: 
+C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Network_config.h: 
 C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Board.h: 
 C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/../ptgmed_inc/EK_TM4C1294XL.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdbool.h: 

@@ -44,9 +44,9 @@
 #include <ti/sysbios/BIOS.h>
 #include <ti/sysbios/knl/Task.h>
 
-#define TCPPORT 1000
-
-#define TCPHANDLERSTACK 1024
+//#define TCPPORT 1000
+//
+//#define TCPHANDLERSTACK 1024
 
 /* Prototypes */
 Void tcpHandler(UArg arg0, UArg arg1);

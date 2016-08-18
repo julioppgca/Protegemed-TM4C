@@ -11,9 +11,9 @@ GEN_CMDS__FLAG := -l"configPkg/linker.cmd"
 
 ORDERED_OBJS += \
 "./main_protegemed.obj" \
-"./tcpEchoHooks.obj" \
 "./ptgmed_inc/ADC_pinout.obj" \
 "./ptgmed_inc/EK_TM4C1294XL.obj" \
+"./ptgmed_inc/Network_config.obj" \
 "./ptgmed_inc/Samples_config.obj" \
 "../EK_TM4C1294XL.cmd" \
 $(GEN_CMDS__FLAG) \
@@ -149,7 +149,7 @@ all: Protegemed.out
 Protegemed.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: ARM Linker'
-	"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --opt_for_speed=0 -g --gcc --define=ccs="ccs" --define=ARM_MATH_CM4 --define=__FPU_PRESENT=1 --define=PART_TM4C1294NCPDT --define=ccs --define=TIVAWARE --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual -z -m"Protegemed.map" --stack_size=512 --heap_size=0 -i"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include" --reread_libs --warn_sections --diag_wrap=off --display_error_number --xml_link_info="Protegemed_linkInfo.xml" --rom_model -o "Protegemed.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --opt_for_speed=0 -g --gcc --define=ccs="ccs" --define=ARM_MATH_CM4 --define=__FPU_PRESENT=1 --define=PART_TM4C1294NCPDT --define=ccs --define=TIVAWARE --diag_wrap=off --diag_warning=225 --diag_warning=255 --display_error_number --gen_func_subsections=on --abi=eabi --ual -z -m"Protegemed.map" --stack_size=512 --heap_size=0 -i"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include" --reread_libs --display_error_number --warn_sections --diag_wrap=off --xml_link_info="Protegemed_linkInfo.xml" --rom_model -o "Protegemed.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -163,8 +163,8 @@ Protegemed.hex: $(EXE_OUTPUTS)
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(BIN_OUTPUTS__QUOTED)$(GEN_OPTS__QUOTED)$(GEN_CMDS__QUOTED)
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
-	-$(RM) "main_protegemed.d" "tcpEchoHooks.d" "ptgmed_inc\ADC_pinout.d" "ptgmed_inc\EK_TM4C1294XL.d" "ptgmed_inc\Samples_config.d" 
-	-$(RM) "main_protegemed.obj" "tcpEchoHooks.obj" "ptgmed_inc\ADC_pinout.obj" "ptgmed_inc\EK_TM4C1294XL.obj" "ptgmed_inc\Samples_config.obj" 
+	-$(RM) "main_protegemed.d" "ptgmed_inc\ADC_pinout.d" "ptgmed_inc\EK_TM4C1294XL.d" "ptgmed_inc\Network_config.d" "ptgmed_inc\Samples_config.d" 
+	-$(RM) "main_protegemed.obj" "ptgmed_inc\ADC_pinout.obj" "ptgmed_inc\EK_TM4C1294XL.obj" "ptgmed_inc\Network_config.obj" "ptgmed_inc\Samples_config.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

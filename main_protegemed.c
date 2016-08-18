@@ -23,6 +23,7 @@
 
 /* Board Header file */
 #include <ptgmed_inc/Samples_config.h>
+#include <ptgmed_inc/Network_config.h>
 #include <ptgmed_inc/Board.h>
 
 /* Standard variables definitions */
@@ -41,14 +42,9 @@
 #include "driverlib/udma.h"
 
 /* CMSIS DSP library */
-#include "arm_math.h"	// Use CMSIS ARM library for fast math operation.
+#include "arm_math.h"	//Use CMSIS ARM library for fast math operation.
 
-#define TCPPACKETSIZE 256
-#define NUMTCPWORKERS 3
-
-uint32_t ui32Ignore=0;
-
-#define DEBUG_DMA
+#define DEBUG_DMA 		//Comment this if not running DEBUG mode.
 
 uint32_t udmaCtrlTable[1024]__attribute__((aligned(1024))); // uDMA control table variable
 int16_t data_array1[ADC_SAMPLE_BUF_SIZE]={}; // Init to zero in all positions
@@ -110,23 +106,19 @@ float32_t rms13=0;
 float32_t rms14=0;
 float32_t rms15=0;
 
-uint16_t buffer=0;
-
 uint32_t uDMATransferCount = 0;
 uint32_t uDMATransferCount2 = 0;
 
 float32_t	wave1[CH_SAMPLE_NUMBER]={};
 float32_t	wave2[CH_SAMPLE_NUMBER]={};
 
-void ADC_Seq0_ISR();	//Interrupt service of ADC Sequencer 0
-void ADC_Seq1_ISR();	//Interrupt service of ADC Sequencer 1
+//void ADC_Seq0_ISR();	//Interrupt service of ADC Sequencer 0
+//void ADC_Seq1_ISR();	//Interrupt service of ADC Sequencer 1
 
 void InitSamples();		//Initialize samples
 void RMSCalc_Task();	//Perform RMS Calculation
 void FFTCalc_Task();	//Perform FFT Calculation
 void HeartBeat_Idle();	//If there is nothing better to do, blynk the user led!!!
-Void tcpWorker(UArg arg0, UArg arg1);
-Void tcpHandler(UArg arg0, UArg arg1);
 
 int main(void)
 {
@@ -144,139 +136,12 @@ int main(void)
     return (0);
 }
 
-
-void ADC_Seq0_ISR(void)
-{
-GPIO_write(DebugPin3,1);
-    uint32_t modePrimary;
-    uint32_t modeAlternate;
-
-    // Clear the interrupt
-    ADCIntClearEx(ADC0_BASE, ADC_INT_DMA_SS0);
-
-    // Get the mode statuses of primary and alternate control structures
-    modePrimary = uDMAChannelModeGet(UDMA_CHANNEL_ADC0 | UDMA_PRI_SELECT);
-    modeAlternate = uDMAChannelModeGet(UDMA_CHANNEL_ADC0 | UDMA_ALT_SELECT);
-
-    // Reload the control structures
-    if ((modePrimary == UDMA_MODE_STOP) && (modeAlternate != UDMA_MODE_STOP))
-    {
-        // Need to reload primary control structure
-        uDMAChannelTransferSet(UDMA_CHANNEL_ADC0 | UDMA_PRI_SELECT,
-        					   UDMA_MODE_PINGPONG,
-							   (void *) (ADC0_BASE + ADC_O_SSFIFO0),
-							   data_array1,
-							   ADC_SAMPLE_BUF_SIZE);
-
-        uDMATransferCount++;
-        buffer=1;
-        if(uDMATransferCount>IGNORE_INIT_SAMPLES) Semaphore_post(data_proc1_Sem); //FIXME: Do it better, it will break down sometime....
-
-    }
-    else if ((modePrimary != UDMA_MODE_STOP) && (modeAlternate == UDMA_MODE_STOP))
-    {
-        // Need to reload alternate control structure
-        uDMAChannelTransferSet(UDMA_CHANNEL_ADC0 | UDMA_ALT_SELECT,
-        					   UDMA_MODE_PINGPONG,
-							   (void *) (ADC0_BASE + ADC_O_SSFIFO0),
-							   data_array2,
-							   ADC_SAMPLE_BUF_SIZE);
-
-        uDMATransferCount++;
-        buffer=2;
-        if(uDMATransferCount>IGNORE_INIT_SAMPLES) Semaphore_post(data_proc2_Sem);
-    }
-
-#ifdef DEBUG_DMA
-    else {
-        // Either both still not stopped, or both stopped. This is an error
-    	Log_info1("DMA - Error in uDMA control structure modes\n uDMATransferCount: %d\n", uDMATransferCount);
-    	Log_info1("DMA - Primary mode: %d \n", modePrimary);
-    	Log_info1("DMA - Alternate mode: %d\n", modeAlternate);
-    	Log_info1("DMA - For reference: Stop: %d", UDMA_MODE_STOP);
-    	Log_info1("DMA - Basic: %d", UDMA_MODE_BASIC);
-    	Log_info1("DMA - Auto: %d", UDMA_MODE_AUTO);
-    	Log_info1("DMA - PingPong: %d", UDMA_MODE_PINGPONG);
-    	Log_info1("DMA - MemScatter: %d", UDMA_MODE_MEM_SCATTER_GATHER);
-    	Log_info1("DMA - PerScatter: %d\n",UDMA_MODE_PER_SCATTER_GATHER);
-    	Log_info0("DMA - Reloading Settings ...");
-    	DMA_init(); // Call DMA_init again to refresh the settings, this is very important in DEBUG mode!
-    }
-#endif
-
-GPIO_write(DebugPin3,0);
-}
-
-void ADC_Seq1_ISR(void)
-{
-//GPIO_write(DebugPin3,1);
-
-    uint32_t modePrimary;
-    uint32_t modeAlternate;
-
-    // Clear the interrupt
-    ADCIntClearEx(ADC1_BASE, ADC_INT_DMA_SS0);
-
-
-    // Get the mode statuses of primary and alternate control structures
-    modePrimary = uDMAChannelModeGet(UDMA_CH24_ADC1_0 | UDMA_PRI_SELECT);
-    modeAlternate = uDMAChannelModeGet(UDMA_CH24_ADC1_0 | UDMA_ALT_SELECT);
-
-    // Reload the control structures
-    if ((modePrimary == UDMA_MODE_STOP) && (modeAlternate != UDMA_MODE_STOP))
-    {
-        // Need to reload primary control structure
-        uDMAChannelTransferSet(UDMA_CH24_ADC1_0 | UDMA_PRI_SELECT,
-        					   UDMA_MODE_PINGPONG,
-							   (void *) (ADC1_BASE + ADC_O_SSFIFO0),
-							   data_array3,
-							   ADC_SAMPLE_BUF_SIZE);
-
-        uDMATransferCount2++;
-        buffer=3;
-       if(uDMATransferCount2>IGNORE_INIT_SAMPLES) Semaphore_post(data_proc3_Sem);
-
-    }
-    else if ((modePrimary != UDMA_MODE_STOP) && (modeAlternate == UDMA_MODE_STOP))
-    {
-        // Need to reload alternate control structure
-        uDMAChannelTransferSet(UDMA_CH24_ADC1_0 | UDMA_ALT_SELECT,
-        					   UDMA_MODE_PINGPONG,
-							   (void *) (ADC1_BASE + ADC_O_SSFIFO0),
-							   data_array4,
-							   ADC_SAMPLE_BUF_SIZE);
-
-        uDMATransferCount2++;
-        buffer=4;
-        if(uDMATransferCount>IGNORE_INIT_SAMPLES)Semaphore_post(data_proc4_Sem);
-    }
-#ifdef DEBUG_DMA
-    else {
-        // Either both still not stopped, or both stopped. This is an error
-    	Log_info1("DMA - Error in uDMA control structure modes\n uDMATransferCount: %d\n", uDMATransferCount);
-    	Log_info1("DMA - Primary mode: %d \n", modePrimary);
-    	Log_info1("DMA - Alternate mode: %d\n", modeAlternate);
-    	Log_info1("DMA - For reference: Stop: %d", UDMA_MODE_STOP);
-    	Log_info1("DMA - Basic: %d", UDMA_MODE_BASIC);
-    	Log_info1("DMA - Auto: %d", UDMA_MODE_AUTO);
-    	Log_info1("DMA - PingPong: %d", UDMA_MODE_PINGPONG);
-    	Log_info1("DMA - MemScatter: %d", UDMA_MODE_MEM_SCATTER_GATHER);
-    	Log_info1("DMA - PerScatter: %d\n",UDMA_MODE_PER_SCATTER_GATHER);
-    	Log_info0("DMA - Reloading Settings ...");
-    	DMA_init(); // Call DMA_init again to refresh the settings, this is very important in DEBUG mode!
-    }
-#endif
-
-//GPIO_write(DebugPin3,0);
-}
-
 void InitSamples(void)
 {
 	ADC_init();
     DMA_init();
     TIMER_init();
 }
-
 
 void RMSCalc_Task(void)
 {
@@ -403,7 +268,6 @@ void RMSCalc_Task(void)
 	}
 }
 
-
 void FFTCalc_Task()
 {
 	while(1)
@@ -494,125 +358,4 @@ void HeartBeat_Idle(void)
 {
 	GPIO_toggle(Board_LED1);
 	SysCtlDelay(1000000);
-}
-
-
-/*
- *  ======== tcpWorker ========
- *  Task to handle TCP connection. Can be multiple Tasks running
- *  this function.
- */
-Void tcpWorker(UArg arg0, UArg arg1)
-{
-    int  clientfd = (int)arg0;
-//    int  bytesRcvd;
-//    int  bytesSent;
-    char buffer[TCPPACKETSIZE];
-    char helloTM4C[]="\n*-----------------------*\n   Hello from TM4C   \n ";
-
-    System_printf("tcpWorker: start clientfd = 0x%x\n", clientfd);
-
-    recv(clientfd, buffer, TCPPACKETSIZE, 0);
-
-    if(buffer[0]=='S')
-    {
-
-        send(clientfd, helloTM4C, sizeof(helloTM4C), 0);
-    }
-    else
-    {
-        send(clientfd, "Comando Invalido!!!", 19, 0);
-    }
-
-
-//    while ((bytesRcvd = recv(clientfd, buffer, TCPPACKETSIZE, 0)) > 0) {
-//        bytesSent = send(clientfd, buffer, bytesRcvd, 0);
-//        if (bytesSent < 0 || bytesSent != bytesRcvd) {
-//            System_printf("Error: send failed.\n");
-//            break;
-//        }
-//    }
-    System_printf("tcpWorker stop clientfd = 0x%x\n", clientfd);
-
-    close(clientfd);
-}
-
-/*
- *  ======== tcpHandler ========
- *  Creates new Task to handle new TCP connections.
- */
-Void tcpHandler(UArg arg0, UArg arg1)
-{
-    int                status;
-    int                clientfd;
-    int                server;
-    struct sockaddr_in localAddr;
-    struct sockaddr_in clientAddr;
-    int                optval;
-    int                optlen = sizeof(optval);
-    socklen_t          addrlen = sizeof(clientAddr);
-    Task_Handle        taskHandle;
-    Task_Params        taskParams;
-    Error_Block        eb;
-
-    server = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (server == -1) {
-        System_printf("Error: socket not created.\n");
-        goto shutdown;
-    }
-
-
-    memset(&localAddr, 0, sizeof(localAddr));
-    localAddr.sin_family = AF_INET;
-    localAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    localAddr.sin_port = htons(arg0);
-
-    status = bind(server, (struct sockaddr *)&localAddr, sizeof(localAddr));
-    if (status == -1) {
-        System_printf("Error: bind failed.\n");
-        goto shutdown;
-    }
-
-    status = listen(server, NUMTCPWORKERS);
-    if (status == -1) {
-        System_printf("Error: listen failed.\n");
-        goto shutdown;
-    }
-
-    optval = 1;
-    if (setsockopt(server, SOL_SOCKET, SO_KEEPALIVE, &optval, optlen) < 0) {
-        System_printf("Error: setsockopt failed\n");
-        goto shutdown;
-    }
-
-    while ((clientfd =
-            accept(server, (struct sockaddr *)&clientAddr, &addrlen)) != -1) {
-
-    	Semaphore_pend(fft_end_Sem, BIOS_WAIT_FOREVER);
-
-        System_printf("tcpHandler: Creating thread clientfd = %d\n", clientfd);
-
-        /* Init the Error_Block */
-        Error_init(&eb);
-
-        /* Initialize the defaults and set the parameters. */
-        Task_Params_init(&taskParams);
-        taskParams.arg0 = (UArg)clientfd;
-        taskParams.stackSize = 1280;
-        taskHandle = Task_create((Task_FuncPtr)tcpWorker, &taskParams, &eb);
-        if (taskHandle == NULL) {
-            System_printf("Error: Failed to create new Task\n");
-            close(clientfd);
-        }
-
-        /* addrlen is a value-result param, must reset for next accept call */
-        addrlen = sizeof(clientAddr);
-    }
-
-    System_printf("Error: accept failed.\n");
-
-shutdown:
-    if (server > 0) {
-        close(server);
-    }
 }

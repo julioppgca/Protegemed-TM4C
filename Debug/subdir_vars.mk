@@ -10,16 +10,13 @@ CFG_SRCS += \
 ../RTOS_protegemed.cfg 
 
 C_SRCS += \
-../main_protegemed.c \
-../tcpEchoHooks.c 
+../main_protegemed.c 
 
 OBJS += \
-./main_protegemed.obj \
-./tcpEchoHooks.obj 
+./main_protegemed.obj 
 
 C_DEPS += \
-./main_protegemed.d \
-./tcpEchoHooks.d 
+./main_protegemed.d 
 
 GEN_MISC_DIRS += \
 ./configPkg/ 
@@ -42,15 +39,12 @@ GEN_MISC_DIRS__QUOTED += \
 "configPkg\" 
 
 C_DEPS__QUOTED += \
-"main_protegemed.d" \
-"tcpEchoHooks.d" 
+"main_protegemed.d" 
 
 OBJS__QUOTED += \
-"main_protegemed.obj" \
-"tcpEchoHooks.obj" 
+"main_protegemed.obj" 
 
 C_SRCS__QUOTED += \
-"../main_protegemed.c" \
-"../tcpEchoHooks.c" 
+"../main_protegemed.c" 
 
 
