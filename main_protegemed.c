@@ -2,47 +2,7 @@
  * Clean code Options.
  */
 
-/* XDCtools Header files */
-#include <xdc/std.h>
-#include <xdc/runtime/System.h>
-#include <xdc/runtime/Log.h>		//needed for any Log_info() call
-#include <xdc/cfg/global.h>
-#include <xdc/runtime/Error.h> 		// for Error Block
-
-/* BIOS Header files */
-#include <ti/sysbios/BIOS.h>
-#include <ti/sysbios/knl/Task.h>
-#include <ti/sysbios/knl/Swi.h>
-#include <ti/sysbios/knl/Semaphore.h>
-
-/* TI-RTOS Header files */
-#include <ti/drivers/GPIO.h>
-
-/* NDK BSD support */
-#include <sys/socket.h>
-
-/* Board Header file */
-#include <ptgmed_inc/Samples_config.h>
-#include <ptgmed_inc/Network_config.h>
-#include <ptgmed_inc/Board.h>
-
-/* Standard variables definitions */
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Tivaware Header files */
-#include "inc/hw_memmap.h"
-#include "inc/hw_ints.h"
-#include "inc/hw_adc.h"
-#include "driverlib/timer.h"
-#include "driverlib/interrupt.h"
-#include "driverlib/sysctl.h"
-#include "driverlib/gpio.h"
-#include "driverlib/adc.h"
-#include "driverlib/udma.h"
-
-/* CMSIS DSP library */
-#include "arm_math.h"	//Use CMSIS ARM library for fast math operation.
+#include <ptgmed_inc/system.h>
 
 #define DEBUG_DMA 		//Comment this if not running DEBUG mode.
 
@@ -60,7 +20,6 @@ float32_t	data_proc4[CH_SAMPLE_NUMBER]={}; // Process variable first cycle
 float32_t	data_proc5[CH_SAMPLE_NUMBER]={}; // Process variable second cycle
 float32_t	data_proc6[CH_SAMPLE_NUMBER]={}; // Process variable second cycle
 float32_t	data_proc7[CH_SAMPLE_NUMBER]={}; // Process variable second cycle
-
 float32_t	data_proc8[CH_SAMPLE_NUMBER]={}; // Process variable first cycle
 float32_t	data_proc9[CH_SAMPLE_NUMBER]={}; // Process variable second cycle
 float32_t	data_proc10[CH_SAMPLE_NUMBER]={}; // Process variable second cycle
@@ -78,7 +37,6 @@ float32_t data_proc4_mag[CH_SAMPLE_NUMBER/2]; // Magnitude of fft analysis
 float32_t data_proc5_mag[CH_SAMPLE_NUMBER/2]; // Magnitude of fft analysis
 float32_t data_proc6_mag[CH_SAMPLE_NUMBER/2]; // Magnitude of fft analysis
 float32_t data_proc7_mag[CH_SAMPLE_NUMBER/2]; // Magnitude of fft analysis
-
 float32_t data_proc8_mag[CH_SAMPLE_NUMBER/2]; // Magnitude of fft analysis
 float32_t data_proc9_mag[CH_SAMPLE_NUMBER/2]; // Magnitude of fft analysis
 float32_t data_proc10_mag[CH_SAMPLE_NUMBER/2]; // Magnitude of fft analysis
@@ -96,7 +54,6 @@ float32_t rms4=0;
 float32_t rms5=0;
 float32_t rms6=0;
 float32_t rms7=0;
-
 float32_t rms8=0;
 float32_t rms9=0;
 float32_t rms10=0;
@@ -112,8 +69,6 @@ uint32_t uDMATransferCount2 = 0;
 float32_t	wave1[CH_SAMPLE_NUMBER]={};
 float32_t	wave2[CH_SAMPLE_NUMBER]={};
 
-//void ADC_Seq0_ISR();	//Interrupt service of ADC Sequencer 0
-//void ADC_Seq1_ISR();	//Interrupt service of ADC Sequencer 1
 
 void InitSamples();		//Initialize samples
 void RMSCalc_Task();	//Perform RMS Calculation
@@ -128,7 +83,6 @@ int main(void)
     Board_initGPIO();
     Board_initEMAC();
 
-    GPIO_write(Board_LED1,1);
 
     /* Start BIOS */
     BIOS_start();

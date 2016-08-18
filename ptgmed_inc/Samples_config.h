@@ -12,6 +12,8 @@ extern "C"
 {
 #endif
 
+#include <ptgmed_inc/system.h>
+
 //*****************************************************************************
 //
 // Defines.
@@ -39,8 +41,8 @@ extern "C"
 extern void ADC_init(void);
 extern void DMA_init(void);
 extern void TIMER_init(void);
-extern void ADC_Seq0_ISR();	//Interrupt service of ADC Sequencer 0
-extern void ADC_Seq1_ISR();	//Interrupt service of ADC Sequencer 1
+extern void ADC_Seq0_ISR();		//Interrupt service of ADC Sequencer 0
+extern void ADC_Seq1_ISR();		//Interrupt service of ADC Sequencer 1
 
 //*****************************************************************************
 //

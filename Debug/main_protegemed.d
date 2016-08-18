@@ -1,6 +1,7 @@
 # FIXED
 
 main_protegemed.obj: ../main_protegemed.c
+main_protegemed.obj: C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/system.h
 main_protegemed.obj: C:/ti/xdctools_3_32_00_06_core/packages/xdc/std.h
 main_protegemed.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdarg.h
 main_protegemed.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stddef.h
@@ -218,19 +219,26 @@ main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packa
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/serrno.h
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/netinet/in.h
 main_protegemed.obj: C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Samples_config.h
+main_protegemed.obj: C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/system.h
 main_protegemed.obj: C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Network_config.h
 main_protegemed.obj: C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Board.h
 main_protegemed.obj: C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/../ptgmed_inc/EK_TM4C1294XL.h
+main_protegemed.obj: C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/ADC_pinout.h
 main_protegemed.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdbool.h
+main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/inc/hw_types.h
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/inc/hw_memmap.h
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/inc/hw_ints.h
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/inc/hw_adc.h
+main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/inc/hw_gpio.h
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/timer.h
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/interrupt.h
-main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/sysctl.h
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/gpio.h
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/adc.h
 main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/udma.h
+main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/pin_map.h
+main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/rom.h
+main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/rom_map.h
+main_protegemed.obj: C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/sysctl.h
 main_protegemed.obj: C:/ti/CMSIS-SP-00300-r4p5-00rel0/CMSIS/Include/arm_math.h
 main_protegemed.obj: C:/ti/CMSIS-SP-00300-r4p5-00rel0/CMSIS/Include/core_cm4.h
 main_protegemed.obj: C:/ti/CMSIS-SP-00300-r4p5-00rel0/CMSIS/Include/core_cmInstr.h
@@ -243,6 +251,7 @@ main_protegemed.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/m
 main_protegemed.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/_defs.h
 
 ../main_protegemed.c: 
+C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/system.h: 
 C:/ti/xdctools_3_32_00_06_core/packages/xdc/std.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdarg.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stddef.h: 
@@ -460,19 +469,26 @@ C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/bi
 C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/serrno.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd/netinet/in.h: 
 C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Samples_config.h: 
+C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/system.h: 
 C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Network_config.h: 
 C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/Board.h: 
 C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/../ptgmed_inc/EK_TM4C1294XL.h: 
+C:/Users/skelter/Protegemed/Protegemed/ptgmed_inc/ADC_pinout.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS/include/stdbool.h: 
+C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/inc/hw_types.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/inc/hw_memmap.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/inc/hw_ints.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/inc/hw_adc.h: 
+C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/inc/hw_gpio.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/timer.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/interrupt.h: 
-C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/sysctl.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/gpio.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/adc.h: 
 C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/udma.h: 
+C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/pin_map.h: 
+C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/rom.h: 
+C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/rom_map.h: 
+C:/ti/tirtos_tivac_2_16_01_14/products/TivaWare_C_Series-2.1.1.71b/driverlib/sysctl.h: 
 C:/ti/CMSIS-SP-00300-r4p5-00rel0/CMSIS/Include/arm_math.h: 
 C:/ti/CMSIS-SP-00300-r4p5-00rel0/CMSIS/Include/core_cm4.h: 
 C:/ti/CMSIS-SP-00300-r4p5-00rel0/CMSIS/Include/core_cmInstr.h: 

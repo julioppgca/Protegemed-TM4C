@@ -1,23 +1,4 @@
-#include <xdc/cfg/global.h> //to get access to statically declared variables in RTOS_protegemed.cfg
-#include <ti/drivers/GPIO.h>
-
-#include <ptgmed_inc/ADC_pinout.h>
 #include <ptgmed_inc/Samples_config.h>
-#include <ptgmed_inc/Board.h>
-
-#include <stdint.h>
-#include <stdbool.h>
-
-/* Tivaware Header files */
-#include "inc/hw_memmap.h"
-#include "inc/hw_ints.h"
-#include "inc/hw_adc.h"
-#include "driverlib/timer.h"
-#include "driverlib/interrupt.h"
-#include "driverlib/sysctl.h"
-#include "driverlib/gpio.h"
-#include "driverlib/adc.h"
-#include "driverlib/udma.h"
 
 extern uint32_t udmaCtrlTable[1024]__attribute__((aligned(1024))); // uDMA control table variable
 extern int16_t data_array1[ADC_SAMPLE_BUF_SIZE]={}; // Init to zero in all positions
@@ -44,7 +25,7 @@ void TIMER_init(void)
 
     // Configure the timer
     TimerConfigure(TIMER0_BASE, TIMER_CFG_A_PERIODIC_UP);
-    TimerLoadSet(TIMER0_BASE, TIMER_A, (ui32ClockFreq / SAMPLE_FREQ)); //
+    TimerLoadSet(TIMER0_BASE, TIMER_A, (ui32ClockFreq / SAMPLE_FREQ));
 
     // Enable timer to trigger ADC
     TimerControlTrigger(TIMER0_BASE, TIMER_A, true);

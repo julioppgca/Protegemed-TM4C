@@ -1,18 +1,4 @@
-/* XDCtools Header files */
-#include <xdc/std.h>
-#include <xdc/runtime/System.h>
-#include <xdc/runtime/Log.h>		//needed for any Log_info() call
-#include <xdc/cfg/global.h>
-#include <xdc/runtime/Error.h> 		// for Error Block
 
-#include <ti/sysbios/knl/Task.h>
-#include <ti/sysbios/knl/Semaphore.h>
-#include <ti/sysbios/BIOS.h>
-
-/* NDK BSD support */
-#include <sys/socket.h>
-
-#include <string.h>
 
 #include <ptgmed_inc/Network_config.h>
 
