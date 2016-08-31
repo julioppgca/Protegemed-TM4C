@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta name="description" content="Como usar charset na <meta> tag">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: Grey;
+}
+
+.cabecalho {
+    position: relative;
+    width: 100%;
+}
+
+.top {
+    position: absolute;
+    top: 1pt;
+    left: 5%;
+    right: 5%;
+    height:40pt;
+    border: 3px solid red;
+    background-color: DarkRed;
+    font: 20px arial, white;
+    text-align: center;
+    color: white;
+    box-shadow: 5px 5px Crimson;
+}
+
+.status {
+    position: relative;
+    width: 100%;
+}
+
+.top2 {
+    position: absolute;
+    top: 50pt;
+    left: 5%;
+    right: 5%;
+    height:25pt;
+    border: 3px solid blue;
+    background-color: white;
+    font: 15px arial, white;
+    text-align: left;
+    color: green;
+    box-shadow: 5px 5px LightSteelBlue ;
+    padding:0pt 1pt 0.5pt 5pt;
+}
+
+
+.janela {
+    position: relative;
+    width: 100%;
+}
+
+.left {
+    position: absolute;
+    top:85pt;
+    left: 5%;
+    width: 69%;
+    border: 3px solid blue;
+    height: 400pt;
+    background-color: SteelBlue ;
+}
+
+.botoes {
+    position: relative;
+    width: 100%;
+}
+
+.right {
+    position: absolute;
+    top:85pt;
+    right: 5%;
+    width: 20%;
+    border: 3px solid blue;
+    height:400pt;
+    background-color: #b0e0ff;
+   }
+
+         
+.btn {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 0px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 25px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  position:relative;
+  width:100%;
+  height:80pt;
+  
+}
+
+.btn:hover,.btn:focus {
+  background: #3c0045; /*#3cb0fd;*/
+  background-image: -webkit-linear-gradient(top, #3a3a40,#677c8a);
+  background-image: -moz-linear-gradient(top, #3a3a40, #677c8a);
+  background-image: -ms-linear-gradient(top, #3a3a40, #677c8a);
+  background-image: -o-linear-gradient(top, #3a3a40, #677c8a);
+  background-image: linear-gradient(to bottom,#3a3a40, #677c8a);
+  text-decoration: none;
+}
+
+
+
+
+</style>
+    
+    <script src="/socket.io/socket.io.js"></script>
+  
+    <script>
+    var socket = io.connect();
+   
+    socket.on('ligado', function (data) {
+                console.log(data);
+                document.body.style.background=data;
+                });
+    
+    function ligar(){
+      socket.emit('ligar', 1);
+    
+       }
+    
+     function desligar(){
+      socket.emit('ligar', 0);
+      
+    }
+    </script>
+
+
+</head>
+<body>
+
+<div class="cabecalho">
+  <div class="top">
+        <p><b>Protegemed TM4C</b> V1.0</p>
+    </div>
+</div>
+
+<div class="status">
+  <div class="top2">
+        
+    </div>
+</div>
+
+<div class="janela">
+  <div class="left">
+
+  </div>
+</div>
+
+<div class="botoes">
+  <div class="right">
+    <button class="btn" onclick="ligar();" >Iniciar</button>
+    <button class="btn" onclick="desligar();" >Parar</button>
+    <button class="btn">Simular Velociade</button>
+    <button class="btn">Simular Eleva��o</button>
+    <button class="btn">Alarmes</button>
+  </div>
+
+</body>
+</html>

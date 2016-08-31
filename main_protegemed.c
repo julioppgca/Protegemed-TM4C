@@ -178,7 +178,6 @@ void RMSCalc_Task(void)
 		// Ready to FFT
 		Semaphore_post(data_proc1_fft_Sem);
 
-
 			Semaphore_pend(data_proc4_Sem, BIOS_WAIT_FOREVER); // Second half 2nd wave, calculate RMS
 
 		GPIO_write(DebugPin2,1);
