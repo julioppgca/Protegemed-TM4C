@@ -7,7 +7,7 @@
         <srcFile name="package/cfg/RTOS_protegemed_pem4f.c"/>
     </sources>
     <configscripts>
-        <srcFile name="C:/Users/skelter/Protegemed/Protegemed/RTOS_protegemed.cfg"/>
+        <srcFile name="C:/Users/skelter/Workspace_PTGMD/Protegemed/RTOS_protegemed.cfg"/>
     </configscripts>
     <makefiles>
         <srcFile name="package.mak" src="package.bld"/>
@@ -20,12 +20,12 @@
     </makefiles>
     <targets>
         <target name="ti.targets.arm.elf.M4F"
-            version="ti.targets.arm.elf.M4F{1,0,15.12,1"
-            rawVersion="15.12.1"
+            version="ti.targets.arm.elf.M4F{1,0,16.9,0"
+            rawVersion="16.9.0"
             platform="ti.platforms.tiva:TM4C1294NCPDT:1"
             isa="v7M4"
             suffix="em4f"
-            rootDir="C:/ti/ccsv6/tools/compiler/ti-cgt-arm_15.12.1.LTS"
+            rootDir="C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS"
             os="undefined"
             rts="ti.targets.arm.rtsarm">
             <model endian="little"
@@ -44,7 +44,7 @@
         isPartial="false"
         xCfgScript="package/cfg/RTOS_protegemed_pem4f.cfg"
         xCfgPrefix="package/cfg/RTOS_protegemed_pem4f"
-        cfgScript="C:/Users/skelter/Protegemed/Protegemed/RTOS_protegemed.cfg"
+        cfgScript="C:/Users/skelter/Workspace_PTGMD/Protegemed/RTOS_protegemed.cfg"
         cfgArgs="null"
         />
     </configurations>
@@ -56,7 +56,7 @@
         profile="release"
         xCfgScript="package/cfg/RTOS_protegemed_pem4f.cfg"
         xCfgPrefix="package/cfg/RTOS_protegemed_pem4f"
-        cfgScript="C:/Users/skelter/Protegemed/Protegemed/RTOS_protegemed.cfg"
+        cfgScript="C:/Users/skelter/Workspace_PTGMD/Protegemed/RTOS_protegemed.cfg"
         cfgArgs="null"
         />
     </executables>

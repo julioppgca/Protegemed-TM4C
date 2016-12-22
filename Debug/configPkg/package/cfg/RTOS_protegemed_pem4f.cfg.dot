@@ -5,7 +5,7 @@ digraph configuration {
     concentrate=true;
     compound=true;
     label="\nConfiguration for configPkg/RTOS_protegemed.xem4f"
-  node [font=Helvetica, fontsize=14, fontcolor=black];  subgraph cluster0 {label=""; __cfg [label="C:/Users/skelter/Protegemed/Protegemed/RTOS_protegemed.cfg", color=white, fontcolor=blue];
+  node [font=Helvetica, fontsize=14, fontcolor=black];  subgraph cluster0 {label=""; __cfg [label="C:/Users/skelter/Workspace_PTGMD/Protegemed/RTOS_protegemed.cfg", color=white, fontcolor=blue];
     node [font=Helvetica, fontsize=10];    subgraph cluster1 {
         label="";
         xdc_services_global__top [shape=box,label="xdc.services.global\n1,0,0,0", color=white];
@@ -629,6 +629,6 @@ digraph configuration {
     ti_uia_loggers__bot -> ti_targets_arm_elf_M4F__1_0_5__2_5 [ltail=cluster64];
     ti_targets_arm_elf_M4F__1_0_5__2_5 [shape=record,label="ti.targets.arm.elf.M4F|1,0,5.2,5",style=filled, fillcolor=lightgrey];
     ti_uia_sysbios__bot -> ti_targets_arm_elf_M4F__1_0_5__2_5 [ltail=cluster65];
-    ti_targets_arm_elf_M4F__1_0_15__12_1 [shape=record,label="ti.targets.arm.elf.M4F|1,0,15.12,1",style=filled, fillcolor=lightgrey];
-    configPkg__top -> ti_targets_arm_elf_M4F__1_0_15__12_1 [ltail=cluster66];
+    ti_targets_arm_elf_M4F__1_0_16__9_0 [shape=record,label="ti.targets.arm.elf.M4F|1,0,16.9,0",style=filled, fillcolor=lightgrey];
+    configPkg__top -> ti_targets_arm_elf_M4F__1_0_16__9_0 [ltail=cluster66];
 }
