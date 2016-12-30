@@ -328,7 +328,7 @@ void ADC_Seq1_ISR(void)
 							   ADC_SAMPLE_BUF_SIZE);
 
         uDMATransferCount2++;
-        if(uDMATransferCount>IGNORE_INIT_SAMPLES)Semaphore_post(data_proc4_Sem);
+        if(uDMATransferCount2>IGNORE_INIT_SAMPLES)Semaphore_post(data_proc4_Sem);
     }
 #ifdef DEBUG_DMA
     else {

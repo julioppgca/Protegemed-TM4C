@@ -134,10 +134,10 @@ EXE_OUTPUTS__QUOTED += \
 "Protegemed.out" \
 
 BIN_OUTPUTS += \
-Protegemed.hex \
+Protegemed.bin \
 
 BIN_OUTPUTS__QUOTED += \
-"Protegemed.hex" \
+"Protegemed.bin" \
 
 
 # All Target
@@ -150,12 +150,14 @@ Protegemed.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	"/Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --opt_for_speed=0 --define=ccs="ccs" --define=ARM_MATH_CM4 --define=__FPU_PRESENT=1 --define=PART_TM4C1294NCPDT --define=ccs --define=TIVAWARE -g --gcc --diag_warning=225 --diag_warning=255 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual -z -m"Protegemed.map" --heap_size=0 --stack_size=512 -i"/Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/lib" -i"/Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="Protegemed_linkInfo.xml" --rom_model -o "Protegemed.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
+	@$(MAKE) --no-print-directory post-build
 
-Protegemed.hex: $(EXE_OUTPUTS)
+Protegemed.bin: $(EXE_OUTPUTS)
 	@echo 'Invoking: ARM Hex Utility'
-	"/Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armhex"  -o "Protegemed.hex" $(EXE_OUTPUTS__QUOTED)
+	"/Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armhex"  -o "Protegemed.bin" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $@'
 	@echo ' '
+	@$(MAKE) --no-print-directory post-build
 
 # Other Targets
 clean:
@@ -164,6 +166,11 @@ clean:
 	-$(RM) "main_protegemed.obj" "ptgmed_inc/ADC_pinout.obj" "ptgmed_inc/EK_TM4C1294XL.obj" "ptgmed_inc/Network_config.obj" "ptgmed_inc/Samples_config.obj" 
 	-$(RM) "main_protegemed.d" "ptgmed_inc/ADC_pinout.d" "ptgmed_inc/EK_TM4C1294XL.d" "ptgmed_inc/Network_config.d" "ptgmed_inc/Samples_config.d" 
 	-@echo 'Finished clean'
+	-@echo ' '
+
+post-build:
+	-@echo 'Generate .bin file.'
+	-"/Applications/ti/ccsv7/utils/tiobj2bin/tiobj2bin" "Protegemed.out" "Protegemed.bin" "/Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armofd" "/Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armhex" "/Applications/ti/ccsv7/utils/tiobj2bin/mkhex4bin"
 	-@echo ' '
 
 .PHONY: all clean dependents

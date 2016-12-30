@@ -8,6 +8,63 @@
 #ifndef PTGMED_INC_SYSTEM_H_
 #define PTGMED_INC_SYSTEM_H_
 
+/* Default parameters */
+#define CLK_FREQ                120000000   // Main CPU clock -> 120MHz
+#define SAMPLE_FREQ             15360       // ADC Sample Frequency: 60Hz * 256 Samples = 15360Hz
+#define CH_SAMPLE_NUMBER        256         // Samples per channel
+#define ADC_SAMPLE_BUF_SIZE     1024        // Max uDMA transfer buffer, it sucks->Max Buffer size of uDMA is 1024
+#define OVER_SAMPLE_VALUE       16          // Over sample value -> each sample is the average of 16 samples
+#define ADC_CHANNEL_OFFSET      2048        // Offset of the ADC channel -> ADC_Resolution/2 = 4096/2 = 2048
+#define ADC_INPUT_SCALE         3.3/4095    // Vmax / ADC_Resolution -> 3.3V/(2^12-1)
+#define NUMBER_OF_CH_ADC        8           // Using Sample sequencer FIFO depth 8, so 8 channels per ADC unit.
+
+//#define NumbersOfCycles         3
+//#define RMS_Limit               0.3
+
+/* Standard variables definitions */
+#include <stdint.h>
+#include <stdbool.h>
+
+/* CMSIS DSP library */
+#include "arm_math.h"   //Use CMSIS ARM library for fast math operation.
+
+/* Sturcts */
+/*
+ * Electrical outlet struct.
+ *
+ */
+typedef struct
+{
+    uint32_t id;
+    float32_t dif_samples[CH_SAMPLE_NUMBER];
+    float32_t ph_samples[CH_SAMPLE_NUMBER];
+    float32_t dif_rms;
+    float32_t ph_rms;
+    float32_t voltage;
+    float32_t fft[CH_SAMPLE_NUMBER / 2];
+    uint64_t events;
+} outlet;
+
+/*
+ * Electrical Panel (gas panel)
+ *
+ */
+typedef struct
+{
+    float32_t voltage_samples_L1[CH_SAMPLE_NUMBER];
+    float32_t voltage_samples_L2[CH_SAMPLE_NUMBER];
+    float32_t voltage_samples_L3[CH_SAMPLE_NUMBER];
+    float32_t L1_rms;
+    float32_t L2_rms;
+    float32_t L3_rms;
+
+} panel_voltages;
+
+enum connection
+{
+    outlet1_diff = 0, outlet1_phase = 1, outlet1_4_voltage_L1 = 13
+};
+
 /* XDCtools Header files */
 #include <xdc/std.h>
 #include <xdc/runtime/System.h>
@@ -33,10 +90,6 @@
 #include <ptgmed_inc/Board.h>
 #include <ptgmed_inc/ADC_pinout.h>
 
-/* Standard variables definitions */
-#include <stdint.h>
-#include <stdbool.h>
-
 /* Tivaware Header files */
 #include "inc/hw_types.h"
 #include "inc/hw_memmap.h"
@@ -52,9 +105,5 @@
 #include "driverlib/rom.h"
 #include "driverlib/rom_map.h"
 #include "driverlib/sysctl.h"
-
-/* CMSIS DSP library */
-#include "arm_math.h"	//Use CMSIS ARM library for fast math operation.
-
 
 #endif /* PTGMED_INC_SYSTEM_H_ */

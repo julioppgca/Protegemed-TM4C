@@ -12,7 +12,6 @@
 -l"/Users/juliosantos/Protegemed-TM4C/Debug/configPkg/package/cfg/RTOS_protegemed_pem4f.oem4f"
 -l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/uia_2_00_05_50/packages/ti/uia/sysbios/lib/release/ti.uia.sysbios.aem4f"
 -l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/uia_2_00_05_50/packages/ti/uia/loggers/lib/release/ti.uia.loggers.aem4f"
--l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/tidrivers_tivac_2_16_00_08/packages/ti/mw/wifi/cc3x00/lib/cc3x00_host_driver.aem4f"
 -l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/ndk_2_25_00_09/packages/ti/ndk/hal/timer_bios/lib/hal_timer_bios.aem4f"
 -l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/ndk_2_25_00_09/packages/ti/ndk/os/lib/os.aem4f"
 -l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/ndk_2_25_00_09/packages/ti/ndk/hal/userled_stub/lib/hal_userled_stub.aem4f"
@@ -25,8 +24,7 @@
 -l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/ndk_2_25_00_09/packages/ti/ndk/hal/ser_stub/lib/hal_ser_stub.aem4f"
 -l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/ndk_2_25_00_09/packages/ti/ndk/tools/servers/lib/servers_min_ipv4.aem4f"
 -l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/ndk_2_25_00_09/packages/ti/ndk/stack/lib/stk.aem4f"
--l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/tidrivers_tivac_2_16_00_08/packages/ti/drivers/lib/drivers_tivaware.aem4f"
--l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/tidrivers_tivac_2_16_00_08/packages/ti/drivers/lib/drivers_wifi_tivaware.aem4f"
+-l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/tidrivers_tivac_2_16_00_08/packages/ti/drivers/lib/drivers_tivaware_instrumented.aem4f"
 -l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/tidrivers_tivac_2_16_00_08/packages/ti/mw/fatfs/lib/release/ti.mw.fatfs.aem4f"
 -l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/tidrivers_tivac_2_16_00_08/packages/ti/drivers/ports/lib/tirtosport.aem4f"
 -l"/Users/juliosantos/Protegemed-TM4C/src/sysbios/sysbios.aem4f"
@@ -99,6 +97,8 @@
 
 /* Content from xdc.runtime.knl (null): */
 
+/* Content from ti.mw (null): */
+
 /* Content from ti.ndk.rov (null): */
 
 /* Content from ti.sysbios.rts (ti/sysbios/rts/linkcmd.xdt): */
@@ -133,9 +133,9 @@
 
 /* Content from ti.catalog.arm.peripherals.timers (null): */
 
-/* Content from ti.catalog.arm.cortexm4 (null): */
-
 /* Content from ti.catalog (null): */
+
+/* Content from ti.catalog.arm.cortexm4 (null): */
 
 /* Content from ti.catalog.peripherals.hdvicp2 (null): */
 
@@ -179,10 +179,6 @@ ti_sysbios_family_arm_m3_Hwi_nvic = 0xe000e000;
 /* Content from ti.sysbios.xdcruntime (null): */
 
 /* Content from ti.sysbios.heaps (null): */
-
-/* Content from ti.mw.wifi.cc3x00 (null): */
-
-/* Content from ti.mw (null): */
 
 /* Content from ti.uia.loggers (null): */
 

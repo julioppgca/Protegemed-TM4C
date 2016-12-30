@@ -1,8 +1,8 @@
 
-
 #include <ptgmed_inc/Network_config.h>
+#include <stdio.h>
 
-
+extern outlet Outlet_1;
 /*
  *  ======== tcpWorker ========
  *  Task to handle TCP connection. Can be multiple Tasks running
@@ -10,26 +10,29 @@
  */
 Void tcpWorker(UArg arg0, UArg arg1)
 {
-    int  clientfd = (int)arg0;
+    int clientfd = (int) arg0;
 //    int  bytesRcvd;
 //    int  bytesSent;
     char buffer[TCPPACKETSIZE];
-    char helloTM4C[]="\n*-----------------------*\n   Hello from TM4C   \n ";
+    char helloTM4C[] = "\n*-----------------------*\n   Hello from TM4C   \n ";
 
     System_printf("tcpWorker: start clientfd = 0x%x\n", clientfd);
 
     recv(clientfd, buffer, TCPPACKETSIZE, 0);
 
-    if(buffer[0]=='S')
+    if (buffer[0] == 'S')
     {
 
+        //send(clientfd, helloTM4C, sizeof(helloTM4C), 0);
+        sprintf(helloTM4C, "RMS Diff.: %f - RMS Phase: %f", Outlet_1.dif_rms, Outlet_1.ph_rms);
         send(clientfd, helloTM4C, sizeof(helloTM4C), 0);
+
+
     }
     else
     {
         send(clientfd, "Comando Invalido!!!", 19, 0);
     }
-
 
 //    while ((bytesRcvd = recv(clientfd, buffer, TCPPACKETSIZE, 0)) > 0) {
 //        bytesSent = send(clientfd, buffer, bytesRcvd, 0);
@@ -49,52 +52,56 @@ Void tcpWorker(UArg arg0, UArg arg1)
  */
 Void tcpHandler(UArg arg0, UArg arg1)
 {
-    int                status;
-    int                clientfd;
-    int                server;
+    int status;
+    int clientfd;
+    int server;
     struct sockaddr_in localAddr;
     struct sockaddr_in clientAddr;
-    int                optval;
-    int                optlen = sizeof(optval);
-    socklen_t          addrlen = sizeof(clientAddr);
-    Task_Handle        taskHandle;
-    Task_Params        taskParams;
-    Error_Block        eb;
+    int optval;
+    int optlen = sizeof(optval);
+    socklen_t addrlen = sizeof(clientAddr);
+    Task_Handle taskHandle;
+    Task_Params taskParams;
+    Error_Block eb;
 
     server = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (server == -1) {
+    if (server == -1)
+    {
         System_printf("Error: socket not created.\n");
         goto shutdown;
     }
-
 
     memset(&localAddr, 0, sizeof(localAddr));
     localAddr.sin_family = AF_INET;
     localAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     localAddr.sin_port = htons(arg0);
 
-    status = bind(server, (struct sockaddr *)&localAddr, sizeof(localAddr));
-    if (status == -1) {
+    status = bind(server, (struct sockaddr *) &localAddr, sizeof(localAddr));
+    if (status == -1)
+    {
         System_printf("Error: bind failed.\n");
         goto shutdown;
     }
 
     status = listen(server, NUMTCPWORKERS);
-    if (status == -1) {
+    if (status == -1)
+    {
         System_printf("Error: listen failed.\n");
         goto shutdown;
     }
 
     optval = 1;
-    if (setsockopt(server, SOL_SOCKET, SO_KEEPALIVE, &optval, optlen) < 0) {
+    if (setsockopt(server, SOL_SOCKET, SO_KEEPALIVE, &optval, optlen) < 0)
+    {
         System_printf("Error: setsockopt failed\n");
         goto shutdown;
     }
 
-    while ((clientfd =
-            accept(server, (struct sockaddr *)&clientAddr, &addrlen)) != -1) {
+    while ((clientfd = accept(server, (struct sockaddr *) &clientAddr, &addrlen))
+            != -1)
+    {
 
-    	Semaphore_pend(fft_end_Sem, BIOS_WAIT_FOREVER);
+        Semaphore_pend(fft_end_Sem, BIOS_WAIT_FOREVER);
 
         System_printf("tcpHandler: Creating thread clientfd = %d\n", clientfd);
 
@@ -103,10 +110,11 @@ Void tcpHandler(UArg arg0, UArg arg1)
 
         /* Initialize the defaults and set the parameters. */
         Task_Params_init(&taskParams);
-        taskParams.arg0 = (UArg)clientfd;
+        taskParams.arg0 = (UArg) clientfd;
         taskParams.stackSize = 1280;
-        taskHandle = Task_create((Task_FuncPtr)tcpWorker, &taskParams, &eb);
-        if (taskHandle == NULL) {
+        taskHandle = Task_create((Task_FuncPtr) tcpWorker, &taskParams, &eb);
+        if (taskHandle == NULL)
+        {
             System_printf("Error: Failed to create new Task\n");
             close(clientfd);
         }
@@ -117,12 +125,11 @@ Void tcpHandler(UArg arg0, UArg arg1)
 
     System_printf("Error: accept failed.\n");
 
-shutdown:
-    if (server > 0) {
+    shutdown: if (server > 0)
+    {
         close(server);
     }
 }
-
 
 /*
  *  ======== netOpenHook ========
@@ -145,8 +152,9 @@ void netOpenHook()
     taskParams.stackSize = TCPHANDLERSTACK;
     taskParams.priority = 1;
     taskParams.arg0 = TCPPORT;
-    taskHandle = Task_create((Task_FuncPtr)tcpHandler, &taskParams, &eb);
-    if (taskHandle == NULL) {
+    taskHandle = Task_create((Task_FuncPtr) tcpHandler, &taskParams, &eb);
+    if (taskHandle == NULL)
+    {
         System_printf("netOpenHook: Failed to create tcpHandler Task\n");
     }
 

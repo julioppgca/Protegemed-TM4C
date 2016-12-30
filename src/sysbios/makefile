@@ -16,7 +16,7 @@ BIOS_INC  = -I"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/produ
 
 TARGET_INC = -I"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/"
 
-INCS = $(BIOS_INC) $(TARGET_INC)  --include_path="/Users/juliosantos/Protegemed-TM4C" --include_path="/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd" --include_path="/Applications/ti/CMSIS-SP-00300-r4p5-00rel0/CMSIS/Include" --include_path="/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/TivaWare_C_Series-2.1.1.71b" --include_path="/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_02_31/packages/ti/sysbios/posix" --include_path="/Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include" 
+INCS = $(BIOS_INC) $(TARGET_INC)  --include_path="/Users/juliosantos/Protegemed-TM4C" --include_path="/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/ndk_2_25_00_09/packages/ti/ndk/inc/bsd" --include_path="/Applications/ti/CMSIS-SP-00300-r4p5-00rel0/CMSIS/Include" --include_path="/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/TivaWare_C_Series-2.1.1.71b" --include_path="/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/sysbios/posix" --include_path="/Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include" 
 
 CC = /Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armcl -c $(CCOPTS) -I /Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include
 ASM = /Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/bin/armcl -c $(CCOPTS) -I /Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include
