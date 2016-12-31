@@ -29,8 +29,10 @@ RMDIR := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
+-include Matlab/subdir_vars.mk
 -include ptgmed_inc/subdir_vars.mk
 -include subdir_rules.mk
+-include Matlab/subdir_rules.mk
 -include ptgmed_inc/subdir_rules.mk
 -include objects.mk
 
