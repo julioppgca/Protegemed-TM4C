@@ -7,5 +7,5 @@
 #       or equal to the generated config header
 #
 linker.cmd: package/cfg/RTOS_protegemed_pem4f.xdl
-	$(SED) 's"^\"\(package/cfg/RTOS_protegemed_pem4fcfg.cmd\)\"$""\"/Users/juliosantos/Protegemed-TM4C/Debug/configPkg/\1\""' package/cfg/RTOS_protegemed_pem4f.xdl > $@
+	$(SED) 's"^\"\(package/cfg/RTOS_protegemed_pem4fcfg.cmd\)\"$""\"/Users/Julio/Documents/NeonWorkspace/Protegemed-TM4C/Debug/configPkg/\1\""' package/cfg/RTOS_protegemed_pem4f.xdl > $@
 	-$(SETDATE) -r:max package/cfg/RTOS_protegemed_pem4f.h compiler.opt compiler.opt.defs

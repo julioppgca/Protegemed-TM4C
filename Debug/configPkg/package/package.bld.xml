@@ -7,7 +7,7 @@
         <srcFile name="package/cfg/RTOS_protegemed_pem4f.c"/>
     </sources>
     <configscripts>
-        <srcFile name="/Users/juliosantos/Protegemed-TM4C/RTOS_protegemed.cfg"/>
+        <srcFile name="/Users/Julio/Documents/NeonWorkspace/Protegemed-TM4C/RTOS_protegemed.cfg"/>
     </configscripts>
     <makefiles>
         <srcFile name="package.mak" src="package.bld"/>
@@ -44,7 +44,7 @@
         isPartial="false"
         xCfgScript="package/cfg/RTOS_protegemed_pem4f.cfg"
         xCfgPrefix="package/cfg/RTOS_protegemed_pem4f"
-        cfgScript="/Users/juliosantos/Protegemed-TM4C/RTOS_protegemed.cfg"
+        cfgScript="/Users/Julio/Documents/NeonWorkspace/Protegemed-TM4C/RTOS_protegemed.cfg"
         cfgArgs="null"
         />
     </configurations>
@@ -56,7 +56,7 @@
         profile="release"
         xCfgScript="package/cfg/RTOS_protegemed_pem4f.cfg"
         xCfgPrefix="package/cfg/RTOS_protegemed_pem4f"
-        cfgScript="/Users/juliosantos/Protegemed-TM4C/RTOS_protegemed.cfg"
+        cfgScript="/Users/Julio/Documents/NeonWorkspace/Protegemed-TM4C/RTOS_protegemed.cfg"
         cfgArgs="null"
         />
     </executables>

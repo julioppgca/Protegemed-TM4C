@@ -14,18 +14,46 @@ Void tcpWorker(UArg arg0, UArg arg1)
 //    int  bytesRcvd;
 //    int  bytesSent;
     char buffer[TCPPACKETSIZE];
-    char helloTM4C[] = "\n*-----------------------*\n   Hello from TM4C   \n ";
+    //char helloTM4C[] = "\n*-----------------------*\n   Hello from TM4C   \n ";
+    char helloTM4C[] = "Firmware Update Request. Rebooting....   \n ";
 
     System_printf("tcpWorker: start clientfd = 0x%x\n", clientfd);
 
     recv(clientfd, buffer, TCPPACKETSIZE, 0);
 
-    if (buffer[0] == 'S')
+    if (buffer[0] == 'U')
     {
-
-        //send(clientfd, helloTM4C, sizeof(helloTM4C), 0);
-        sprintf(helloTM4C, "RMS Diff.: %f - RMS Phase: %f", Outlet_1.dif_rms, Outlet_1.ph_rms);
         send(clientfd, helloTM4C, sizeof(helloTM4C), 0);
+        //
+        // Disable all processor interrupts.  Instead of disabling them
+        // one at a time (and possibly missing an interrupt if new sources
+        // are added), a direct write to NVIC is done to disable all
+        // peripheral interrupts.
+        //
+        HWREG(NVIC_DIS0) = 0xffffffff;
+        HWREG(NVIC_DIS1) = 0xffffffff;
+        HWREG(NVIC_DIS2) = 0xffffffff;
+        HWREG(NVIC_DIS3) = 0xffffffff;
+        HWREG(NVIC_DIS4) = 0xffffffff;
+
+        //
+        // Also disable the SysTick interrupt.
+        //
+        SysTickIntDisable();
+        SysTickDisable();
+
+        //
+        // Return control to the boot loader.  This is a call to the SVC
+        // handler in the flashed-based boot loader, or to the ROM if configured.
+        //
+    #if ((defined ROM_UpdateEMAC) && !(defined USE_FLASH_BOOT_LOADER))
+        ROM_UpdateEMAC(ui32SysClock);
+    #else
+        (*((void (*)(void))(*(uint32_t *)0x2c)))();
+    #endif
+        //send(clientfd, helloTM4C, sizeof(helloTM4C), 0);
+        //sprintf(helloTM4C, "RMS Diff.: %f - RMS Phase: %f", Outlet_1.dif_rms, Outlet_1.ph_rms);
+        //send(clientfd, helloTM4C, sizeof(helloTM4C), 0);
 
 
     }

@@ -78,19 +78,9 @@ enum connection
 #include <ti/sysbios/knl/Swi.h>
 #include <ti/sysbios/knl/Semaphore.h>
 
-/* TI-RTOS Header files */
-#include <ti/drivers/GPIO.h>
-
-/* NDK BSD support */
-#include <sys/socket.h>
-
-/* Board Header file */
-#include <ptgmed_inc/Samples_config.h>
-#include <ptgmed_inc/Network_config.h>
-#include <ptgmed_inc/Board.h>
-#include <ptgmed_inc/ADC_pinout.h>
-
 /* Tivaware Header files */
+#include "inc/hw_nvic.h"
+#include "inc/hw_sysctl.h"
 #include "inc/hw_types.h"
 #include "inc/hw_memmap.h"
 #include "inc/hw_ints.h"
@@ -105,5 +95,18 @@ enum connection
 #include "driverlib/rom.h"
 #include "driverlib/rom_map.h"
 #include "driverlib/sysctl.h"
+#include "driverlib/systick.h"
+
+/* TI-RTOS Header files */
+#include <ti/drivers/GPIO.h>
+
+/* NDK BSD support */
+#include <sys/socket.h>
+
+/* Board Header file */
+#include <ptgmed_inc/Samples_config.h>
+#include <ptgmed_inc/Network_config.h>
+#include <ptgmed_inc/Board.h>
+#include <ptgmed_inc/ADC_pinout.h>
 
 #endif /* PTGMED_INC_SYSTEM_H_ */

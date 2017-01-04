@@ -15,90 +15,90 @@ XDCCFGDIR = package/cfg/
 # in the event that some included BOM script changes.
 #
 ifneq (clean,$(MAKECMDGOALS))
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/utils.js:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/utils.js
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/xdc.tci:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/xdc.tci
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/template.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/template.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/om2.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/om2.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/xmlgen.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/xmlgen.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/xmlgen2.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/xmlgen2.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/Warnings.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/Warnings.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/IPackage.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/IPackage.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/package.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/package.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/global/Clock.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/global/Clock.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/global/Trace.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/global/Trace.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/bld.js:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/bld.js
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/BuildEnvironment.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/BuildEnvironment.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/PackageContents.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/PackageContents.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/_gen.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/_gen.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Library.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Library.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Executable.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Executable.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Repository.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Repository.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Configuration.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Configuration.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Script.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Script.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Manifest.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Manifest.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Utils.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Utils.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITarget.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITarget.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITarget2.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITarget2.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITarget3.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITarget3.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITargetFilter.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITargetFilter.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/package.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/package.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/utils.js:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/utils.js
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/xdc.tci:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/xdc.tci
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/template.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/template.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/om2.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/om2.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/xmlgen.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/xmlgen.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/xmlgen2.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/xmlgen2.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/Warnings.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/Warnings.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/IPackage.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/IPackage.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/package.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/package.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/global/Clock.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/global/Clock.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/global/Trace.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/global/Trace.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/bld.js:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/bld.js
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/BuildEnvironment.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/BuildEnvironment.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/PackageContents.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/PackageContents.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/_gen.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/_gen.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Library.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Library.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Executable.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Executable.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Repository.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Repository.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Configuration.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Configuration.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Script.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Script.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Manifest.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Manifest.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Utils.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/Utils.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITarget.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITarget.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITarget2.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITarget2.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITarget3.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITarget3.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITargetFilter.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/ITargetFilter.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/package.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/bld/package.xs
 package.mak: config.bld
-/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/ITarget.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/ITarget.xs
-/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/C28_large.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/C28_large.xs
-/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/C28_float.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/C28_float.xs
-/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/package.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/package.xs
-/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/arm/elf/IArm.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/arm/elf/IArm.xs
-/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/arm/elf/package.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/arm/elf/package.xs
+/Users/Julio/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/ITarget.xs:
+package.mak: /Users/Julio/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/ITarget.xs
+/Users/Julio/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/C28_large.xs:
+package.mak: /Users/Julio/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/C28_large.xs
+/Users/Julio/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/C28_float.xs:
+package.mak: /Users/Julio/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/C28_float.xs
+/Users/Julio/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/package.xs:
+package.mak: /Users/Julio/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/package.xs
+/Users/Julio/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/arm/elf/IArm.xs:
+package.mak: /Users/Julio/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/arm/elf/IArm.xs
+/Users/Julio/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/arm/elf/package.xs:
+package.mak: /Users/Julio/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/arm/elf/package.xs
 package.mak: package.bld
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/compiler.opt.xdt:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/compiler.opt.xdt
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/io/File.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/io/File.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/io/package.xs:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/io/package.xs
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/compiler.defs.xdt:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/compiler.defs.xdt
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/custom.mak.exe.xdt:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/custom.mak.exe.xdt
-/Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/package.xs.xdt:
-package.mak: /Users/juliosantos/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/package.xs.xdt
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/compiler.opt.xdt:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/compiler.opt.xdt
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/io/File.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/io/File.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/io/package.xs:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/services/io/package.xs
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/compiler.defs.xdt:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/compiler.defs.xdt
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/custom.mak.exe.xdt:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/custom.mak.exe.xdt
+/Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/package.xs.xdt:
+package.mak: /Users/Julio/ti/tirex-content/xdctools_3_32_00_06_core/packages/xdc/tools/configuro/template/package.xs.xdt
 endif
 
 ti.targets.arm.elf.M4F.rootDir ?= /Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS
-ti.targets.arm.elf.packageBase ?= /Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/arm/elf/
+ti.targets.arm.elf.packageBase ?= /Users/Julio/ti/tirex-content/tirtos_tivac_2_16_00_08/products/bios_6_45_01_29/packages/ti/targets/arm/elf/
 .PRECIOUS: $(XDCCFGDIR)/%.oem4f
 .PHONY: all,em4f .dlls,em4f .executables,em4f test,em4f
 all,em4f: .executables,em4f

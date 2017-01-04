@@ -11,7 +11,7 @@ var makeAssembly = false;
 var Executable = xdc.module('xdc.bld.Executable');
 
 var exeOpts = new Executable.Attrs({
-        cfgScript: '/Users/juliosantos/Protegemed-TM4C/RTOS_protegemed.cfg',
+        cfgScript: '/Users/Julio/Documents/NeonWorkspace/Protegemed-TM4C/RTOS_protegemed.cfg',
         profile: 'release',
         cfgHome: 'configPkg',
 });
@@ -41,7 +41,7 @@ else {
 
 var thisObj = {
     cfg:        '../RTOS_protegemed.cfg',
-    outputPath: '/Users/juliosantos/Protegemed-TM4C/Debug/configPkg',
+    outputPath: '/Users/Julio/Documents/NeonWorkspace/Protegemed-TM4C/Debug/configPkg',
     exeName:    'RTOS_protegemed' + suffix,
     exeIntName: 'RTOS_protegemed' + suffix.replace('.', '_'),
     targ:       targ,
