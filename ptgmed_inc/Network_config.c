@@ -1,4 +1,3 @@
-
 #include <ptgmed_inc/Network_config.h>
 #include <stdio.h>
 
@@ -14,24 +13,54 @@ Void tcpWorker(UArg arg0, UArg arg1)
 //    int  bytesRcvd;
 //    int  bytesSent;
     char buffer[TCPPACKETSIZE];
-    char helloTM4C[] = "\n*-----------------------*\n   Hello from TM4C   \n ";
+    //char helloTM4C[] = "\n*-----------------------*\n   Hello from TM4C   \n ";
 
     System_printf("tcpWorker: start clientfd = 0x%x\n", clientfd);
 
     recv(clientfd, buffer, TCPPACKETSIZE, 0);
 
-    if (buffer[0] == 'S')
+    //
+    // Firmware Update Request -> 'U' + MAC address (U=0x55 in ascii)
+    // eg.:  0x55 0x00 0x1a 0xb6 0x03 0x06 0x1a
+    //
+    if ((buffer[0] == 'U') && (buffer[1] == 0x00) && (buffer[2] == 0x1a)
+                           && (buffer[3] == 0xb6) && (buffer[4] == 0x03)
+                           && (buffer[5] == 0x06) && (buffer[6] == 0x1a))
     {
+        const char UpdateRequest[] = "Firmware Update Request. Reseting...";
+        send(clientfd, UpdateRequest, sizeof(UpdateRequest), 0);
 
-        //send(clientfd, helloTM4C, sizeof(helloTM4C), 0);
-        sprintf(helloTM4C, "RMS Diff.: %f - RMS Phase: %f", Outlet_1.dif_rms, Outlet_1.ph_rms);
-        send(clientfd, helloTM4C, sizeof(helloTM4C), 0);
+        //
+        // Disable all processor interrupts.  Instead of disabling them
+        // one at a time (and possibly missing an interrupt if new sources
+        // are added), a direct write to NVIC is done to disable all
+        // peripheral interrupts.
+        //
+        HWREG(NVIC_DIS0) = 0xffffffff;
+        HWREG(NVIC_DIS1) = 0xffffffff;
+        HWREG(NVIC_DIS2) = 0xffffffff;
+        HWREG(NVIC_DIS3) = 0xffffffff;
+        HWREG(NVIC_DIS4) = 0xffffffff;
 
+        //
+        // Also disable the SysTick interrupt.
+        //
+        SysTickIntDisable();
+        SysTickDisable();
 
+        //
+        // Return control to the boot loader.  This is a call to the SVC
+        // handler in the flashed-based boot loader, or to the ROM if configured.
+        //
+#if ((defined ROM_UpdateEMAC) && !(defined USE_FLASH_BOOT_LOADER))
+        ROM_UpdateEMAC(ui32SysClock);
+#else
+        (*((void (*)(void)) (*(uint32_t *) 0x2c)))();
+#endif
     }
     else
     {
-        send(clientfd, "Comando Invalido!!!", 19, 0);
+        send(clientfd, "Unknown Command", 19, 0);
     }
 
 //    while ((bytesRcvd = recv(clientfd, buffer, TCPPACKETSIZE, 0)) > 0) {

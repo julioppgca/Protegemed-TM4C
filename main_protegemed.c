@@ -7,6 +7,8 @@
 
 #include <ptgmed_inc/system.h>
 
+
+//#define USE_ETH_BOOTLOADER
 #define DEBUG_DMA 		//Comment this if not running DEBUG mode.
 
 /*

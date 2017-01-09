@@ -36,13 +36,16 @@
 
 //
 //	Bootloader config option.
-//  To use define in main file #define USE_ETH_BOOTLOADER
+//  To use uncomment line: #define USE_ETH_BOOTLOADER
 //  Set RTOS_protegmed.cfg line as below:
 //   /* place vector table at application start address */
 //   var ti_sysbios_family_arm_m3_Hwi = xdc.useModule('ti.sysbios.family.arm.m3.Hwi');
 //   ti_sysbios_family_arm_m3_Hwi.resetVectorAddress = 0x00004000;
 //   Transfer Protegemed.bin with LM Flash Programmer
 //
+
+//#define USE_ETH_BOOTLOADER
+
  #ifdef USE_ETH_BOOTLOADER
  #define BASE	0x00004000
  #else
