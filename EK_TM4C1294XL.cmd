@@ -34,9 +34,24 @@
  *  Define the memory block start/length for the EK_TM4C1294XL M4
  */
 
+//
+//	Bootloader config option.
+//  To use define in main file #define USE_ETH_BOOTLOADER
+//  Set RTOS_protegmed.cfg line as below:
+//   /* place vector table at application start address */
+//   var ti_sysbios_family_arm_m3_Hwi = xdc.useModule('ti.sysbios.family.arm.m3.Hwi');
+//   ti_sysbios_family_arm_m3_Hwi.resetVectorAddress = 0x00004000;
+//   Transfer Protegemed.bin with LM Flash Programmer
+//
+ #ifdef USE_ETH_BOOTLOADER
+ #define BASE	0x00004000
+ #else
+ #define BASE	0x00000000
+ #endif
+
 MEMORY
 {
-    FLASH (RX) : origin = 0x00000000, length = 0x00100000
+    FLASH (RX) : origin = BASE, length = 0x00100000
     SRAM (RWX) : origin = 0x20000000, length = 0x00040000
 }
 
