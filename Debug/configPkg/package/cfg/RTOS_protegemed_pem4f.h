@@ -10,9 +10,6 @@
 #include <ti/sysbios/family/arm/m3/Hwi.h>
 extern const ti_sysbios_family_arm_m3_Hwi_Handle ADC_Seq0_Handle;
 
-#include <ti/sysbios/knl/Task.h>
-extern const ti_sysbios_knl_Task_Handle InitSamples_Handle;
-
 #include <ti/sysbios/knl/Semaphore.h>
 extern const ti_sysbios_knl_Semaphore_Handle data_proc1_Sem;
 
@@ -42,6 +39,9 @@ extern const ti_sysbios_knl_Semaphore_Handle data_proc3_fft_Sem;
 
 #include <ti/sysbios/knl/Semaphore.h>
 extern const ti_sysbios_knl_Semaphore_Handle fft_end_Sem;
+
+#include <ti/sysbios/knl/Task.h>
+extern const ti_sysbios_knl_Task_Handle InitSamples_Handle;
 
 extern int xdc_runtime_Startup__EXECFXN__C;
 

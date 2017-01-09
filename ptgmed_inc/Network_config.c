@@ -1,8 +1,7 @@
-
-
 #include <ptgmed_inc/Network_config.h>
+#include <stdio.h>
 
-
+extern outlet Outlet_1;
 /*
  *  ======== tcpWorker ========
  *  Task to handle TCP connection. Can be multiple Tasks running
@@ -10,26 +9,59 @@
  */
 Void tcpWorker(UArg arg0, UArg arg1)
 {
-    int  clientfd = (int)arg0;
+    int clientfd = (int) arg0;
 //    int  bytesRcvd;
 //    int  bytesSent;
     char buffer[TCPPACKETSIZE];
-    char helloTM4C[]="\n*-----------------------*\n   Hello from TM4C   \n ";
+    //char helloTM4C[] = "\n*-----------------------*\n   Hello from TM4C   \n ";
 
     System_printf("tcpWorker: start clientfd = 0x%x\n", clientfd);
 
     recv(clientfd, buffer, TCPPACKETSIZE, 0);
 
-    if(buffer[0]=='S')
+    //
+    // Firmware Update Request -> 'U' + MAC address (U=0x55 in ascii)
+    // eg.:  0x55 0x00 0x1a 0xb6 0x03 0x06 0x1a
+    //
+    if ((buffer[0] == 'U') && (buffer[1] == 0x00) && (buffer[2] == 0x1a)
+                           && (buffer[3] == 0xb6) && (buffer[4] == 0x03)
+                           && (buffer[5] == 0x06) && (buffer[6] == 0x1a))
     {
+        const char UpdateRequest[] = "Firmware Update Request. Reseting...";
+        send(clientfd, UpdateRequest, sizeof(UpdateRequest), 0);
 
-        send(clientfd, helloTM4C, sizeof(helloTM4C), 0);
+        //
+        // Disable all processor interrupts.  Instead of disabling them
+        // one at a time (and possibly missing an interrupt if new sources
+        // are added), a direct write to NVIC is done to disable all
+        // peripheral interrupts.
+        //
+        HWREG(NVIC_DIS0) = 0xffffffff;
+        HWREG(NVIC_DIS1) = 0xffffffff;
+        HWREG(NVIC_DIS2) = 0xffffffff;
+        HWREG(NVIC_DIS3) = 0xffffffff;
+        HWREG(NVIC_DIS4) = 0xffffffff;
+
+        //
+        // Also disable the SysTick interrupt.
+        //
+        SysTickIntDisable();
+        SysTickDisable();
+
+        //
+        // Return control to the boot loader.  This is a call to the SVC
+        // handler in the flashed-based boot loader, or to the ROM if configured.
+        //
+#if ((defined ROM_UpdateEMAC) && !(defined USE_FLASH_BOOT_LOADER))
+        ROM_UpdateEMAC(ui32SysClock);
+#else
+        (*((void (*)(void)) (*(uint32_t *) 0x2c)))();
+#endif
     }
     else
     {
-        send(clientfd, "Comando Invalido!!!", 19, 0);
+        send(clientfd, "Unknown Command", 19, 0);
     }
-
 
 //    while ((bytesRcvd = recv(clientfd, buffer, TCPPACKETSIZE, 0)) > 0) {
 //        bytesSent = send(clientfd, buffer, bytesRcvd, 0);
@@ -49,52 +81,56 @@ Void tcpWorker(UArg arg0, UArg arg1)
  */
 Void tcpHandler(UArg arg0, UArg arg1)
 {
-    int                status;
-    int                clientfd;
-    int                server;
+    int status;
+    int clientfd;
+    int server;
     struct sockaddr_in localAddr;
     struct sockaddr_in clientAddr;
-    int                optval;
-    int                optlen = sizeof(optval);
-    socklen_t          addrlen = sizeof(clientAddr);
-    Task_Handle        taskHandle;
-    Task_Params        taskParams;
-    Error_Block        eb;
+    int optval;
+    int optlen = sizeof(optval);
+    socklen_t addrlen = sizeof(clientAddr);
+    Task_Handle taskHandle;
+    Task_Params taskParams;
+    Error_Block eb;
 
     server = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (server == -1) {
+    if (server == -1)
+    {
         System_printf("Error: socket not created.\n");
         goto shutdown;
     }
-
 
     memset(&localAddr, 0, sizeof(localAddr));
     localAddr.sin_family = AF_INET;
     localAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     localAddr.sin_port = htons(arg0);
 
-    status = bind(server, (struct sockaddr *)&localAddr, sizeof(localAddr));
-    if (status == -1) {
+    status = bind(server, (struct sockaddr *) &localAddr, sizeof(localAddr));
+    if (status == -1)
+    {
         System_printf("Error: bind failed.\n");
         goto shutdown;
     }
 
     status = listen(server, NUMTCPWORKERS);
-    if (status == -1) {
+    if (status == -1)
+    {
         System_printf("Error: listen failed.\n");
         goto shutdown;
     }
 
     optval = 1;
-    if (setsockopt(server, SOL_SOCKET, SO_KEEPALIVE, &optval, optlen) < 0) {
+    if (setsockopt(server, SOL_SOCKET, SO_KEEPALIVE, &optval, optlen) < 0)
+    {
         System_printf("Error: setsockopt failed\n");
         goto shutdown;
     }
 
-    while ((clientfd =
-            accept(server, (struct sockaddr *)&clientAddr, &addrlen)) != -1) {
+    while ((clientfd = accept(server, (struct sockaddr *) &clientAddr, &addrlen))
+            != -1)
+    {
 
-    	Semaphore_pend(fft_end_Sem, BIOS_WAIT_FOREVER);
+        Semaphore_pend(fft_end_Sem, BIOS_WAIT_FOREVER);
 
         System_printf("tcpHandler: Creating thread clientfd = %d\n", clientfd);
 
@@ -103,10 +139,11 @@ Void tcpHandler(UArg arg0, UArg arg1)
 
         /* Initialize the defaults and set the parameters. */
         Task_Params_init(&taskParams);
-        taskParams.arg0 = (UArg)clientfd;
+        taskParams.arg0 = (UArg) clientfd;
         taskParams.stackSize = 1280;
-        taskHandle = Task_create((Task_FuncPtr)tcpWorker, &taskParams, &eb);
-        if (taskHandle == NULL) {
+        taskHandle = Task_create((Task_FuncPtr) tcpWorker, &taskParams, &eb);
+        if (taskHandle == NULL)
+        {
             System_printf("Error: Failed to create new Task\n");
             close(clientfd);
         }
@@ -117,12 +154,11 @@ Void tcpHandler(UArg arg0, UArg arg1)
 
     System_printf("Error: accept failed.\n");
 
-shutdown:
-    if (server > 0) {
+    shutdown: if (server > 0)
+    {
         close(server);
     }
 }
-
 
 /*
  *  ======== netOpenHook ========
@@ -145,8 +181,9 @@ void netOpenHook()
     taskParams.stackSize = TCPHANDLERSTACK;
     taskParams.priority = 1;
     taskParams.arg0 = TCPPORT;
-    taskHandle = Task_create((Task_FuncPtr)tcpHandler, &taskParams, &eb);
-    if (taskHandle == NULL) {
+    taskHandle = Task_create((Task_FuncPtr) tcpHandler, &taskParams, &eb);
+    if (taskHandle == NULL)
+    {
         System_printf("netOpenHook: Failed to create tcpHandler Task\n");
     }
 
