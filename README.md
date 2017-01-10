@@ -5,3 +5,7 @@ To compile these sorces you will need the Code Composer Studio (CCS) software fr
 To get the best performance with ARM Cortex-M4 it uses the CMSIS DSP Library.
 
 
+##Good References
+
+Flash a custom board: http://e2e.ti.com/support/microcontrollers/tiva_arm/f/908/p/325440/1787834?keyMatch=jtag%20programmer&tisearch=Search-EN-Everything#pi239031350=4
+
