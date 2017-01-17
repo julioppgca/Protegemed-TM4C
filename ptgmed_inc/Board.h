@@ -47,6 +47,7 @@ extern "C" {
 #define Board_initSDSPI             EK_TM4C1294XL_initSDSPI
 #define Board_initSPI               EK_TM4C1294XL_initSPI
 #define Board_initUART              EK_TM4C1294XL_initUART
+#define Board_initRFID              EK_TM4C1294XL_initRFID // TODO: test this.
 #define Board_initUSB               EK_TM4C1294XL_initUSB
 #define Board_initUSBMSCHFatFs      EK_TM4C1294XL_initUSBMSCHFatFs
 #define Board_initWatchdog          EK_TM4C1294XL_initWatchdog
@@ -59,6 +60,7 @@ extern "C" {
 #define Board_LED2                  EK_TM4C1294XL_D2
 #define Board_BUTTON0               EK_TM4C1294XL_USR_SW1
 #define Board_BUTTON1               EK_TM4C1294XL_USR_SW2
+#define Board_RFID_SCIO             RFIDPinSCIO
 
 #define Board_I2C0                  EK_TM4C1294XL_I2C7
 #define Board_I2C1                  EK_TM4C1294XL_I2C8

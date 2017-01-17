@@ -2,6 +2,11 @@
 #include <stdio.h>
 
 extern outlet Outlet_1;
+
+//extern  UART_Handle uart;
+//extern  char input;
+
+
 /*
  *  ======== tcpWorker ========
  *  Task to handle TCP connection. Can be multiple Tasks running
@@ -24,8 +29,8 @@ Void tcpWorker(UArg arg0, UArg arg1)
     // eg.:  0x55 0x00 0x1a 0xb6 0x03 0x06 0x1a
     //
     if ((buffer[0] == 'U') && (buffer[1] == 0x00) && (buffer[2] == 0x1a)
-                           && (buffer[3] == 0xb6) && (buffer[4] == 0x03)
-                           && (buffer[5] == 0x06) && (buffer[6] == 0x1a))
+            && (buffer[3] == 0xb6) && (buffer[4] == 0x03) && (buffer[5] == 0x06)
+            && (buffer[6] == 0x1a))
     {
         const char UpdateRequest[] = "Firmware Update Request. Reseting...";
         send(clientfd, UpdateRequest, sizeof(UpdateRequest), 0);
@@ -57,6 +62,29 @@ Void tcpWorker(UArg arg0, UArg arg1)
 #else
         (*((void (*)(void)) (*(uint32_t *) 0x2c)))();
 #endif
+    }
+    else if (buffer[0] == 'R')
+    {
+        //char t=0; //numero de tentativas
+
+       // for(t=0;t<3;t++)
+        {
+        GPIO_write(RFIDPinTXCT, 0); //wake pulse
+        SysCtlDelay(2000); //  =~50us
+        GPIO_write(RFIDPinTXCT, 1);
+        SysCtlDelay(80000); // =~2ms // wait
+        GPIO_write(RFIDPinTXCT, 0); // charge and diag.
+
+        SysCtlDelay(2000000); // =~50ms
+        GPIO_write(RFIDPinTXCT, 1); //start comm
+        SysCtlDelay(2000000);
+
+        }
+
+        char id[8];
+        sprintf(id,"%X",Outlet_1.id);
+        send(clientfd, id, sizeof(id), 0);
+
     }
     else
     {

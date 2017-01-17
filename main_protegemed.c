@@ -31,19 +31,23 @@ uint32_t uDMATransferCount2 = 0;
 float32_t wave1[256] = { };
 float32_t wave2[256] = { };
 float32_t wave3[256] = { };
+uint32_t rfid=0;
+
 
 void InitSamples();		//Initialize samples
 void RMSCalc_Task();	//Perform RMS Calculation
 void FFTCalc_Task();	//Perform FFT Calculation
+void Read_RFID();
 void HeartBeat_Idle();//If there is nothing better to do, blynk the user led!!!
+void RFID_SCIO(unsigned int index);
 
-int main(void)
-{
-
+int main(void){
     /* Call board init functions */
     Board_initGeneral();
     Board_initGPIO();
     Board_initEMAC();
+    Board_initUART();
+    GPIO_write(RFIDPinTXCT, 1);
 
     /* Start BIOS */
     BIOS_start();
@@ -244,7 +248,7 @@ void RMSCalc_Task(void)
                     &Panel_Voltages.L3_rms);
         //arm_rms_f32(Free_Channel,CH_SAMPLE_NUMBER,&Free_Channel);
 
-        Outlet_1.id = 1;
+       // Outlet_1.id = 1;
 //			if(tomada1.dif_rms >RMS_Limit)
 //			{
 //			    tomada1.id=2;
@@ -341,6 +345,91 @@ void FFTCalc_Task()
             GPIO_write(DebugPin2, 0);
         }
     }
+}
+
+
+/*
+ *  ======== echoFxn ========
+ *  Task for this function is created statically. See the project's .cfg file.
+ *  CRC = X^16+X^12+X^5+X^1
+ *  https://www.lammertbies.nl/comm/info/crc-calculation.html
+ *  Tested TAG: 12 34 56 78 00 00 00 00
+ *  CRC = 63 FE
+ *  TODO: Implement CRC check
+ *  CRCConfigSet(CCM0_BASE, CRC_CFG_INIT_0 | CRC_CFG_TYPE_P1021 | CRC_CFG_SIZE_8BIT);
+ */
+Void Read_RFID(void)
+{
+    char input[19];
+    UART_Handle uart;
+    UART_Params uartParams;
+    //const char echoPrompt[] = "\fEchoing characters:\r\n";
+
+    /* Create a UART with data processing off. */
+    UART_Params_init(&uartParams);
+    uartParams.writeDataMode = UART_DATA_BINARY;
+    uartParams.readDataMode = UART_DATA_BINARY;
+    uartParams.readReturnMode = UART_RETURN_FULL;
+    uartParams.readEcho = UART_ECHO_OFF;
+    uartParams.baudRate = 15625;
+    uart = UART_open(Board_UART0, &uartParams);
+
+    if (uart == NULL) {
+        System_abort("Error opening the UART");
+    }
+
+    //UART_write(uart, echoPrompt, sizeof(echoPrompt));
+
+    //Outlet_1.id=0;
+    /* Loop forever echoing */
+    while (1) {
+
+        UART_read(uart, &input, 2);
+        if((input[0]==0x50)&(input[1]==0xfe))
+        {
+        UART_read(uart, &input, 17);
+        //if((input[0]==0x50)&(input[10]==0xfe))
+        //{
+            Outlet_1.id[0] = input[7];
+            Outlet_1.id[1] = input[6];
+            Outlet_1.id[2] = input[5];
+            Outlet_1.id[3] = input[4];
+            Outlet_1.id[4] = input[3];
+            Outlet_1.id[5] = input[2];
+            Outlet_1.id[6] = input[1];
+            Outlet_1.id[7] = input[0];
+        }
+        else
+        {
+            Outlet_1.id[0] = 0;
+            Outlet_1.id[1] = 0;
+            Outlet_1.id[2] = 0;
+            Outlet_1.id[3] = 0;
+            Outlet_1.id[4] = 0;
+            Outlet_1.id[5] = 0;
+            Outlet_1.id[6] = 0;
+            Outlet_1.id[7] = 0;
+        }
+        //}
+        //UART_write(uart,"32", 2);
+        SysCtlDelay(2000000);
+    }
+}
+
+void RFID_SCIO(unsigned int index)
+{
+    //uint32_t data=0;
+    //uint32_t i;
+    //GPIO_disableInt(Board_RFID_SCIO);
+    SysCtlDelay(2600); //  =~65us
+//    for(i=0;i<8;i++)
+//    {
+//        data|=GPIO_read(RFIDPinSCIO)<<i;
+//        SysCtlDelay(2500); //  =~65us
+//    }
+//    rfid=i;
+//    SysCtlDelay(2600); //  =~65us
+    //GPIO_enableInt(Board_RFID_SCIO);
 }
 
 void HeartBeat_Idle(void)

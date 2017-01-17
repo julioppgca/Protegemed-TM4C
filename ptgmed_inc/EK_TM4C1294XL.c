@@ -276,6 +276,7 @@ void EK_TM4C1294XL_initEMAC(void)
 
 #include <ti/drivers/GPIO.h>
 #include <ti/drivers/gpio/GPIOTiva.h>
+//#include <ti/drivers/gpio/GPIOTiva.c>
 
 /*
  * Array of Pin configurations
@@ -288,9 +289,11 @@ void EK_TM4C1294XL_initEMAC(void)
 GPIO_PinConfig gpioPinConfigs[] = {
     /* Input pins */
     /* EK_TM4C1294XL_USR_SW1 */
-    GPIOTiva_PJ_0 | GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_RISING,
+    //GPIOTiva_PJ_0 | GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_RISING,
     /* EK_TM4C1294XL_USR_SW2 */
-    GPIOTiva_PJ_1 | GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_RISING,
+    //GPIOTiva_PJ_1 | GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_RISING,
+    /* SCIO RFID Pin */
+    //GPIOTiva_PC_4 | GPIO_CFG_IN_PU | GPIO_CFG_IN_INT_RISING,
 
     /* Output pins */
     /* EK_TM4C1294XL_USR_D1 */
@@ -303,6 +306,8 @@ GPIO_PinConfig gpioPinConfigs[] = {
 	GPIOTiva_PN_3 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
 	/* Debug pin 3 */
 	GPIOTiva_PP_2 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
+	/* TXCT RFID Pin */
+	GPIOTiva_PC_5 | GPIO_CFG_OUT_STD | GPIO_CFG_OUT_STR_HIGH | GPIO_CFG_OUT_LOW,
 };
 
 /*
@@ -313,8 +318,9 @@ GPIO_PinConfig gpioPinConfigs[] = {
  *       reduce memory usage (if placed at end of gpioPinConfigs array).
  */
 GPIO_CallbackFxn gpioCallbackFunctions[] = {
-    NULL,  /* EK_TM4C1294XL_USR_SW1 */
-    NULL   /* EK_TM4C1294XL_USR_SW2 */
+    //EK_TM4C1294XL_USR_SW1,//NULL,  /* EK_TM4C1294XL_USR_SW1 */
+    //EK_TM4C1294XL_USR_SW2,//NULL,   /* EK_TM4C1294XL_USR_SW2 */
+    //RFIDPinSCIO
 };
 
 /* The device-specific GPIO_config structure */
@@ -715,8 +721,8 @@ unsigned char uartTivaRingBuffer[EK_TM4C1294XL_UARTCOUNT][32];
 /* UART configuration structure */
 const UARTTiva_HWAttrs uartTivaHWAttrs[EK_TM4C1294XL_UARTCOUNT] = {
     {
-        .baseAddr = UART0_BASE,
-        .intNum = INT_UART0,
+        .baseAddr = UART7_BASE,
+        .intNum = INT_UART7,
         .intPriority = (~0),
         .flowControl = UART_FLOWCONTROL_NONE,
         .ringBufPtr  = uartTivaRingBuffer[0],
@@ -740,10 +746,10 @@ const UART_Config UART_config[] = {
 void EK_TM4C1294XL_initUART(void)
 {
     /* Enable and configure the peripherals used by the uart. */
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
-    GPIOPinConfigure(GPIO_PA0_U0RX);
-    GPIOPinConfigure(GPIO_PA1_U0TX);
-    GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART7);
+    GPIOPinConfigure(GPIO_PC4_U7RX);
+    //GPIOPinConfigure(GPIO_PC5_U7TX);
+    GPIOPinTypeUART(GPIO_PORTC_BASE, GPIO_PIN_4);// | GPIO_PIN_5);
 
     /* Initialize the UART driver */
 #if TI_DRIVERS_UART_DMA
@@ -751,6 +757,20 @@ void EK_TM4C1294XL_initUART(void)
 #endif
     UART_init();
 }
+//void EK_TM4C1294XL_initUART(void)
+//{
+//    /* Enable and configure the peripherals used by the uart. */
+//    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+//    GPIOPinConfigure(GPIO_PA0_U0RX);
+//    GPIOPinConfigure(GPIO_PA1_U0TX);
+//    GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+//
+//    /* Initialize the UART driver */
+//#if TI_DRIVERS_UART_DMA
+//    EK_TM4C1294XL_initDMA();
+//#endif
+//    UART_init();
+//}
 
 /*
  *  =============================== USB ===============================

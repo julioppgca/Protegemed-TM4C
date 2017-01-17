@@ -43,6 +43,9 @@ extern const ti_sysbios_knl_Semaphore_Handle fft_end_Sem;
 #include <ti/sysbios/knl/Task.h>
 extern const ti_sysbios_knl_Task_Handle InitSamples_Handle;
 
+#include <ti/sysbios/knl/Task.h>
+extern const ti_sysbios_knl_Task_Handle Read_RFID_Handle;
+
 extern int xdc_runtime_Startup__EXECFXN__C;
 
 extern int xdc_runtime_Startup__RESETFXN__C;

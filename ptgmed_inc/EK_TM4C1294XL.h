@@ -69,13 +69,15 @@ typedef enum EK_TM4C1294XL_EMACName {
  *  @brief  Enum of LED names on the EK_TM4C1294XL dev board
  */
 typedef enum EK_TM4C1294XL_GPIOName {
-    EK_TM4C1294XL_USR_SW1 = 0,
-    EK_TM4C1294XL_USR_SW2,
+    //EK_TM4C1294XL_USR_SW1 = 0,
+    //EK_TM4C1294XL_USR_SW2,
+    //RFIDPinSCIO=0,
     EK_TM4C1294XL_D1,
     EK_TM4C1294XL_D2,
 	DebugPin1,
 	DebugPin2,
 	DebugPin3,
+	RFIDPinTXCT,
 
     EK_TM4C1294XL_GPIOCOUNT
 } EK_TM4C1294XL_GPIOName;
@@ -129,7 +131,6 @@ typedef enum EK_TM4C1294XL_SPIName {
  */
 typedef enum EK_TM4C1294XL_UARTName {
     EK_TM4C1294XL_UART0 = 0,
-
     EK_TM4C1294XL_UARTCOUNT
 } EK_TM4C1294XL_UARTName;
 
@@ -257,6 +258,17 @@ extern void EK_TM4C1294XL_initSPI(void);
  *  UART_config variable.
  */
 extern void EK_TM4C1294XL_initUART(void);
+
+/*!
+ *  @brief  Initialize board RFID Uart
+ *
+ *  This function initializes the board specific UART settings and then calls
+ *  the UART_init API to initialize the UART module.
+ *
+ *  The UART peripherals controlled by the UART module are determined by the
+ *  UART_config variable.
+ */
+extern void EK_TM4C1294XL_initRFID(void);
 
 /*!
  *  @brief  Initialize board specific USB settings

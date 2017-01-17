@@ -35,7 +35,7 @@
  */
 typedef struct
 {
-    uint32_t id;
+    char id[8];
     float32_t dif_samples[CH_SAMPLE_NUMBER];
     float32_t ph_samples[CH_SAMPLE_NUMBER];
     float32_t dif_rms;
@@ -80,6 +80,7 @@ enum connection
 
 /* TI-RTOS Header files */
 #include <ti/drivers/GPIO.h>
+#include <ti/drivers/UART.h>
 
 /* NDK BSD support */
 #include <sys/socket.h>
@@ -102,6 +103,8 @@ enum connection
 #include "driverlib/rom_map.h"
 #include "driverlib/sysctl.h"
 #include "driverlib/systick.h"
+#include "driverlib/uart.h"
+
 
 /* Board Header file */
 #include <ptgmed_inc/Samples_config.h>
