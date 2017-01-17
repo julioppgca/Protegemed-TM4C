@@ -80,7 +80,7 @@ Void tcpWorker(UArg arg0, UArg arg1)
         SysCtlDelay(2000000);
 
         }
-
+        //TODO: Put a semaphore here!
         char id[8];
         sprintf(id,"%X%X%X%X%X%X%X%X",Outlet_1.id[7],Outlet_1.id[6],Outlet_1.id[5],Outlet_1.id[4],Outlet_1.id[3],Outlet_1.id[2],Outlet_1.id[1],Outlet_1.id[0]);
         send(clientfd, id, sizeof(id), 0);
