@@ -13,7 +13,7 @@ extern "C"
 #endif
 
 
-#include <ptgmed_inc/system.h>
+#include "../includes_protegemd/system.h"
 
 //*****************************************************************************
 //

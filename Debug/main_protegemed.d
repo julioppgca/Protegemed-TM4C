@@ -1,7 +1,7 @@
 # FIXED
 
 main_protegemed.obj: ../main_protegemed.c
-main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/ptgmed_inc/system.h
+main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/includes_protegemd/system.h
 main_protegemed.obj: /Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stdint.h
 main_protegemed.obj: /Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stdbool.h
 main_protegemed.obj: /Applications/ti/CMSIS-SP-00300-r4p5-00rel0/CMSIS/Include/arm_math.h
@@ -250,15 +250,15 @@ main_protegemed.obj: /Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08
 main_protegemed.obj: /Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/TivaWare_C_Series-2.1.1.71b/driverlib/sysctl.h
 main_protegemed.obj: /Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/TivaWare_C_Series-2.1.1.71b/driverlib/systick.h
 main_protegemed.obj: /Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/TivaWare_C_Series-2.1.1.71b/driverlib/uart.h
-main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/ptgmed_inc/Samples_config.h
-main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/ptgmed_inc/system.h
-main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/ptgmed_inc/Network_config.h
-main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/ptgmed_inc/Board.h
-main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/ptgmed_inc/../ptgmed_inc/EK_TM4C1294XL.h
-main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/ptgmed_inc/ADC_pinout.h
+main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/includes_protegemd/../includes_protegemd/Samples_config.h
+main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/includes_protegemd/../includes_protegemd/../includes_protegemd/system.h
+main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/includes_protegemd/../includes_protegemd/Network_config.h
+main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/includes_protegemd/../includes_protegemd/Board.h
+main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/includes_protegemd/../includes_protegemd/../includes_protegemd/EK_TM4C1294XL.h
+main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/includes_protegemd/../includes_protegemd/ADC_pinout.h
 
 ../main_protegemed.c: 
-/Users/juliosantos/Protegemed-TM4C/ptgmed_inc/system.h: 
+/Users/juliosantos/Protegemed-TM4C/includes_protegemd/system.h: 
 /Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stdint.h: 
 /Applications/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.0.LTS/include/stdbool.h: 
 /Applications/ti/CMSIS-SP-00300-r4p5-00rel0/CMSIS/Include/arm_math.h: 
@@ -507,9 +507,9 @@ main_protegemed.obj: /Users/juliosantos/Protegemed-TM4C/ptgmed_inc/ADC_pinout.h
 /Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/TivaWare_C_Series-2.1.1.71b/driverlib/sysctl.h: 
 /Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/TivaWare_C_Series-2.1.1.71b/driverlib/systick.h: 
 /Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/TivaWare_C_Series-2.1.1.71b/driverlib/uart.h: 
-/Users/juliosantos/Protegemed-TM4C/ptgmed_inc/Samples_config.h: 
-/Users/juliosantos/Protegemed-TM4C/ptgmed_inc/system.h: 
-/Users/juliosantos/Protegemed-TM4C/ptgmed_inc/Network_config.h: 
-/Users/juliosantos/Protegemed-TM4C/ptgmed_inc/Board.h: 
-/Users/juliosantos/Protegemed-TM4C/ptgmed_inc/../ptgmed_inc/EK_TM4C1294XL.h: 
-/Users/juliosantos/Protegemed-TM4C/ptgmed_inc/ADC_pinout.h: 
+/Users/juliosantos/Protegemed-TM4C/includes_protegemd/../includes_protegemd/Samples_config.h: 
+/Users/juliosantos/Protegemed-TM4C/includes_protegemd/../includes_protegemd/../includes_protegemd/system.h: 
+/Users/juliosantos/Protegemed-TM4C/includes_protegemd/../includes_protegemd/Network_config.h: 
+/Users/juliosantos/Protegemed-TM4C/includes_protegemd/../includes_protegemd/Board.h: 
+/Users/juliosantos/Protegemed-TM4C/includes_protegemd/../includes_protegemd/../includes_protegemd/EK_TM4C1294XL.h: 
+/Users/juliosantos/Protegemed-TM4C/includes_protegemd/../includes_protegemd/ADC_pinout.h: 

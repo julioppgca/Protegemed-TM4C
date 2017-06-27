@@ -5,8 +5,8 @@
  *      Author: skelter
  */
 
-#ifndef PTGMED_INC_SYSTEM_H_
-#define PTGMED_INC_SYSTEM_H_
+#ifndef INCLUDES_PROTEGEMD_SYSTEM_H_
+#define INCLUDES_PROTEGEMD_SYSTEM_H_
 
 /* Default parameters */
 #define CLK_FREQ                120000000   // Main CPU clock -> 120MHz
@@ -107,10 +107,10 @@ enum connection
 
 
 /* Board Header file */
-#include <ptgmed_inc/Samples_config.h>
-#include <ptgmed_inc/Network_config.h>
-#include <ptgmed_inc/Board.h>
-#include <ptgmed_inc/ADC_pinout.h>
+#include "../includes_protegemd/Samples_config.h"
+#include "../includes_protegemd/Network_config.h"
+#include "../includes_protegemd/Board.h"
+#include "../includes_protegemd/ADC_pinout.h"
 
 
-#endif /* PTGMED_INC_SYSTEM_H_ */
+#endif /* INCLUDES_PROTEGEMD_SYSTEM_H_ */

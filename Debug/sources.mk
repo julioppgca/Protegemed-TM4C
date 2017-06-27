@@ -125,5 +125,5 @@ GEN_OPTS__QUOTED :=
 SUBDIRS := \
 . \
 Matlab \
-ptgmed_inc \
+includes_protegemd \
 

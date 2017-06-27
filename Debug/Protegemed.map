@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker Unix v16.9.0                   
 ******************************************************************************
->> Linked Mon Jan 16 23:33:08 2017
+>> Linked Tue Jun 27 15:36:58 2017
 
 OUTPUT FILE NAME:   <Protegemed.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 00015279
@@ -1478,7 +1478,7 @@ MODULE SUMMARY
     +--+-----------------------------+--------+---------+---------+
        Total:                        2186     0         34008  
                                                                
-    ./ptgmed_inc/
+    ./includes_protegemd/
        Samples_config.obj            1060     0         0      
        Network_config.obj            1000     37        0      
        EK_TM4C1294XL.obj             444      108       282    

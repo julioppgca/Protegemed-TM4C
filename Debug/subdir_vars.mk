@@ -7,7 +7,7 @@ CFG_SRCS += \
 ../RTOS_protegemed.cfg 
 
 CMD_SRCS += \
-../EK_TM4C1294XL.cmd 
+../cmd_protegemed.cmd 
 
 C_SRCS += \
 ../main_protegemed.c 

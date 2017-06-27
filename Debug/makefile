@@ -9,11 +9,11 @@ GEN_CMDS__FLAG := -l"configPkg/linker.cmd"
 
 ORDERED_OBJS += \
 "./main_protegemed.obj" \
-"./ptgmed_inc/ADC_pinout.obj" \
-"./ptgmed_inc/EK_TM4C1294XL.obj" \
-"./ptgmed_inc/Network_config.obj" \
-"./ptgmed_inc/Samples_config.obj" \
-"../EK_TM4C1294XL.cmd" \
+"./includes_protegemd/ADC_pinout.obj" \
+"./includes_protegemd/EK_TM4C1294XL.obj" \
+"./includes_protegemd/Network_config.obj" \
+"./includes_protegemd/Samples_config.obj" \
+"../cmd_protegemed.cmd" \
 $(GEN_CMDS__FLAG) \
 -l"/Users/juliosantos/ti/tirex-content/tirtos_tivac_2_16_00_08/products/TivaWare_C_Series-2.1.1.71b/grlib/ccs/Debug/grlib.lib" \
 -l"/Applications/ti/CMSIS-SP-00300-r4p5-00rel0/CMSIS/Lib/CCS/M4/dsplib-cm4f.lib" \
@@ -30,10 +30,10 @@ RMDIR := rm -rf
 -include sources.mk
 -include subdir_vars.mk
 -include Matlab/subdir_vars.mk
--include ptgmed_inc/subdir_vars.mk
+-include includes_protegemd/subdir_vars.mk
 -include subdir_rules.mk
 -include Matlab/subdir_rules.mk
--include ptgmed_inc/subdir_rules.mk
+-include includes_protegemd/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -165,8 +165,8 @@ Protegemed.bin: $(EXE_OUTPUTS)
 clean:
 	-$(RM) $(GEN_CMDS__QUOTED)$(GEN_MISC_FILES__QUOTED)$(BIN_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)$(GEN_OPTS__QUOTED)
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
-	-$(RM) "main_protegemed.obj" "ptgmed_inc/ADC_pinout.obj" "ptgmed_inc/EK_TM4C1294XL.obj" "ptgmed_inc/Network_config.obj" "ptgmed_inc/Samples_config.obj" 
-	-$(RM) "main_protegemed.d" "ptgmed_inc/ADC_pinout.d" "ptgmed_inc/EK_TM4C1294XL.d" "ptgmed_inc/Network_config.d" "ptgmed_inc/Samples_config.d" 
+	-$(RM) "main_protegemed.obj" "includes_protegemd/ADC_pinout.obj" "includes_protegemd/EK_TM4C1294XL.obj" "includes_protegemd/Network_config.obj" "includes_protegemd/Samples_config.obj" 
+	-$(RM) "main_protegemed.d" "includes_protegemd/ADC_pinout.d" "includes_protegemd/EK_TM4C1294XL.d" "includes_protegemd/Network_config.d" "includes_protegemd/Samples_config.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

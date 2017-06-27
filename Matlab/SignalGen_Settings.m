@@ -13,7 +13,7 @@ SampleTime=1/(Base_Frequency*Sample_Number);
 
 % PWM Parameters
 CPU_Frequency = 90e6; % F28069M run at 90MHz.
-PWM_Frequency = 250e3; % 250KHz is good enought, DAC is a LPF (R=1k, C=0.1uF)
+PWM_Frequency = 250e3; % 250KHz is good enought, DAC is a LPF (R=1k, C=0.1uF, Fc=1,591KHz) 
 PWM_Counter = CPU_Frequency/PWM_Frequency;
 PWM_Offset = PWM_Counter/2;
 

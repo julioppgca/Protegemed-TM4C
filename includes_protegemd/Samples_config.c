@@ -1,4 +1,4 @@
-#include <ptgmed_inc/Samples_config.h>
+#include <includes_protegemd/Samples_config.h>
 
 extern uint32_t udmaCtrlTable[1024]__attribute__((aligned(1024))); // uDMA control table variable
 extern int16_t data_array1[ADC_SAMPLE_BUF_SIZE]={}; // Init to zero in all positions

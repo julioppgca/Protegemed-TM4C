@@ -1,4 +1,4 @@
-#include <ptgmed_inc/Network_config.h>
+#include <includes_protegemd/Network_config.h>
 #include <stdio.h>
 
 extern outlet Outlet_1;
